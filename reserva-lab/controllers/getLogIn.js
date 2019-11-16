@@ -15,13 +15,7 @@ const getUser = (req,res)=>{
             });
         }
         else {
-            /*Deberia de direccionar al usuario a la pagina principal*/
-            res.status(200)
-            .json({
-                status: 'Succesful',
-                user: Data[0].codigo,
-                password: Data[0].denominacion
-            });
+            res.redirect('/admin/users');
         }
     })
     .catch(err=>{

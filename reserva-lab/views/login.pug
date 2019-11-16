@@ -12,12 +12,14 @@ html(lang="en")
             div(class="navtitle")
                 h1(class="navtitle-text")='Sistema de Reservas Edificio Jon Cortina'
         div(class="login-form")
-            form(action="/examples/actions/confirmation.php" method="post")
+            form(method="post")
                 h2(class="text-center")='Login'
                 div(class="form-group")
-                    input(type="text" class="form-control" placeholder="Usuario" required="required")
+                    div.error=err.msg
+                    input(type="text" class="form-control" placeholder="Usuario" required="required" name='user')
                 div(class="form-group")
-                    input(type="password" class="form-control" placeholder="Contraseña" required="required")
+                    input(type="password" class="form-control" placeholder="Contraseña" required="required" name='password')
                 div(class="form-group")
                     button(type="submit" class="btn btn-primary btn-block")='Iniciar sesión'
             p(class="text-center"): a(href="#")='Crear usuario'
+//-action="/examples/actions/confirmation.php"

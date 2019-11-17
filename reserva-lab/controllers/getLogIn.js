@@ -4,7 +4,8 @@ const getUser = (req,res)=>{
     let user = req.body.user;
     let pass = req.body.password;
     
-    db.connection.any(`SELECT codigo, denominacion FROM proyecto WHERE codigo='${user}'`)
+    db.connection.any(`SELECT carnet, contra FROM usuario 
+    WHERE carnet='${user}' AND contra='${pass}'`)
     .then((Data)=>{
         if (!Data[0]) {
             res.render('login',{

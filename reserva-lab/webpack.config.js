@@ -8,7 +8,7 @@ module.exports = {
   },
   output: {
     filename: 'calendar.js',
-    path: path.join(__dirname, 'dist')
+    path: path.join(__dirname, 'public/dist')
   },
   devtool: 'sourcemap'
 }

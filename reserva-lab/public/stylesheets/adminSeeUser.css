@@ -1,8 +1,11 @@
-.navtitle{
+/* .navtitle{
     margin-left: auto;
     margin-right: auto;
     text-align: center;
   }
   .navtitle-text{
     font-size: 2.5vw;
-  }
+  } */
+.table {
+  text-align: center;
+}

@@ -1,10 +1,8 @@
 var express = require('express');
 var router = express.Router();
+const getLogIn = require('../controllers/getLogIn');
 
 /*GET where admin can see all users*/
-router.get('/', (req, res)=>{
-    res.render('adminSeeUser');
-    //res.send('Hello!');
-});
-
+router.get('/', getLogIn.getAllUser);
+router.get('/search', getLogIn.getUserById)
 module.exports = router;

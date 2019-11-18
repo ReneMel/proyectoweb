@@ -1,12 +1,14 @@
 const db = require('../models/connection');
 
 const getUser = (req,res)=>{
-    let user = req.body.user;
-    let pass = req.body.password;
+    const {
+        user,
+        password
+    } = req.body;
     
     db.connection.any(`SELECT carnet, contra FROM usuario 
-    WHERE carnet='${user}' AND contra='${pass}'`)
-    .then((Data)=>{
+    WHERE carnet='${user}' AND contra='${password}';`)
+    .then(Data=>{
         if (!Data[0]) {
             res.render('login',{
                 err: {
@@ -27,4 +29,18 @@ const getUser = (req,res)=>{
     })
 }
 
-module.exports = {getUser}
+const getAllUser = async (req,res)=>{
+    const user = await db.connection.any(`SELECT carnet, nombre, correo, tipo, is_admin, estado
+    FROM usuario;`);
+    res.render('adminSeeUser', {user})
+}
+const getUserById = async (req,res)=>{
+    const carnet = req.query.carnet;
+    
+    const user = await db.connection.any(`SELECT carnet, nombre, correo, tipo, is_admin, estado
+    FROM usuario WHERE carnet='${carnet}';`);
+    //console.log(user);   
+    res.render('adminSeeUser', {user})
+}
+
+module.exports = {getUser,getAllUser,getUserById}

@@ -5,7 +5,8 @@ const router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.sendFile('/views/index.html', { root: '.' })
+  //res.sendFile('/views/index.html', { root: '.' })
+  res.render('index')
 });
 
 module.exports = router;

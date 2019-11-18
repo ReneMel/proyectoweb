@@ -34,13 +34,32 @@ const getAllUser = async (req,res)=>{
     FROM usuario;`);
     res.render('adminSeeUser', {user})
 }
+// const getUserById = async (req,res)=>{
+//     const carnet = req.query.carnet;
+    
+//     const user = await db.connection.any(`SELECT carnet, nombre, correo, tipo, is_admin, estado
+//     FROM usuario WHERE carnet='${carnet}';`);
+//     //console.log(user);   
+//     res.render('adminSeeUser', {user})
+// }
+
 const getUserById = async (req,res)=>{
     const carnet = req.query.carnet;
     
     const user = await db.connection.any(`SELECT carnet, nombre, correo, tipo, is_admin, estado
-    FROM usuario WHERE carnet='${carnet}';`);
-    //console.log(user);   
-    res.render('adminSeeUser', {user})
+    FROM usuario WHERE carnet='${carnet}';`)
+    .then((data)=>{
+        return res.status(200).json(data);
+    })
 }
 
-module.exports = {getUser,getAllUser,getUserById}
+const updateUser = async (req,res)=>{
+    //const carnet = req.params.id;
+    const user = req.body;
+    console.log(`a: ${user}`);
+    
+}
+
+
+
+module.exports = {getUser,getAllUser,getUserById,updateUser}

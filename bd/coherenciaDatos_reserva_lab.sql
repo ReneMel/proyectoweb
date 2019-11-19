@@ -143,3 +143,20 @@ insert into carrera values ('00IGAII','ing. informatica');
 
 COMMIT;
 */
+
+/*
+Éste trigger protege la integridad de datos en solicitud previniendo que se haga una solicitud sobre otra con el mismo día, hora y laboratorio
+*/
+create or replace function comprueba_solicitud() returns trigger as $$
+DECLARE
+	solicitudes RECORD;
+BEGIN
+	select into solicitudes * from solicitud where fecha_inicio=new.fecha_inicio and hora_inicio=new.hora_inicio and codigo_laboratorio=new.codigo_laboratorio;
+	if(solicitudes.fecha_inicio is not null and solicitudes.hora_inicio is not null and solicitudes.codigo_laboratorio is not null) then
+		raise exception 'Ya existe una solicitud previa para la fecha %, en la hora %, en el laboratorio %.',new.fecha_inicio,new.hora_inicio,new.codigo_laboratorio;
+	end if;
+	return new;
+END;
+$$ LANGUAGE plpgsql;
+
+create trigger solicitud_repetida before insert or update on solicitud for each row execute procedure comprueba_solicitud();

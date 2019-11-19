@@ -15,7 +15,8 @@ create table usuario (
 	nombre text not null,
 	correo email not null, 
 	contra text not null,
-	rol text not null, 
+	rol boolean not null, 
+	estado boolean not null,
 	tipo text  not null check (tipo in ('docente', 'soporte', 'estudiante'))
 );
 

@@ -66,7 +66,6 @@ $("#exampleModalCenter").on("show.bs.modal", async e=>{
           return res.json()
       })
       .then(res => {
-          console.log(res);
           res.map((object,index)=>{
             userCarnet.innerText = object.carnet;
             userName.value = object.nombre;
@@ -76,17 +75,40 @@ $("#exampleModalCenter").on("show.bs.modal", async e=>{
       })
 });
 //Editing user inside the modal 
-// editBtn.addEventListener('click', async event=>{
-//     event.preventDefault();
-//     const userCarnet = document.getElementById('userCarnet');
-//     const userName = document.getElementById('userName');
-//     const userPass = document.getElementById('userPass');
-//     const userEmail = document.getElementById('userEmail');
-//     const userType = document.getElementById('userType');
+editBtn.addEventListener('click', async event=>{
+    event.preventDefault();
+    const userCarnet = document.getElementById('userCarnet');
+    const userName = document.getElementById('userName');
+    const userPass = document.getElementById('userPass');
+    const userEmail = document.getElementById('userEmail');
+    const userType = document.getElementById('userType');
 
-//     await fetch(`http://localhost:3000/users/edit?carnet=${userCarnet.innerText}`);
-//     /*?carnet=${userCarnet.innerText}?
-//     userName=${userName.value}?userPass=${userPass.value}?userEmail=${userEmail.value}?
-//     userType=${userType.value}*/
-
-// });
+    await fetch(`http://localhost:3000/users/edit?carnet=${userCarnet.innerText}`,
+    {
+        method: 'PUT',
+        headers: {'Content-type': 'application/json; charset=UTF-8'},
+        body: JSON.stringify({
+            name: userName.value,
+            pass: userPass.value,
+            email: userEmail.value,
+            type: userType.value
+        })
+    })
+    .then(res=>{
+        return res.json();
+    })
+    .then(data=>{
+        data.map((object,index)=>{
+             userName.value = object.nombre;
+             userPass.value = '';
+             userEmail.value = object.correo;
+             userType.value = object.tipo;
+        })
+    })
+    .catch(err=>{
+        console.log(err);
+    });
+    /*?carnet=${userCarnet.innerText}?
+    userName=${userName.value}?userPass=${userPass.value}?userEmail=${userEmail.value}?
+    userType=${userType.value}*/
+});

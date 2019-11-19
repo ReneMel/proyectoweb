@@ -54,10 +54,30 @@ const getUserById = async (req,res)=>{
 }
 
 const updateUser = async (req,res)=>{
-    //const carnet = req.params.id;
     const user = req.body;
-    console.log(`a: ${user}`);
+    const carnet = req.query.carnet;
+    //let name, pass, email, type;
+    //console.log(user.name);
     
+    // user.map((object,index)=>{
+    //     name = object.name;
+    //     pass = object.password;
+    //     email = object.email;
+    //     type = object.type;
+    // });
+    console.log(user.email);
+    
+    const update = await db.connection.any(`UPDATE usuario SET nombre='${user.name}', contra='${user.pass}', correo='${user.email}', tipo='${user.type}' WHERE carnet='${carnet}';`)
+    .catch(err=>{
+        console.log(err);
+    });
+    const updateUser = await db.connection.any(`SELECT nombre, correo, tipo FROM usuario WHERE carnet='${carnet}';`)
+    .then((data)=>{
+        return res.status(200).json(data);
+    })
+    .catch(err=>{
+        console.log(err);
+    })
 }
 
 

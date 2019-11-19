@@ -6,5 +6,6 @@ const getLogIn = require('../controllers/getLogIn');
 router.get('/', getLogIn.getAllUser);
 router.get('/search', getLogIn.getUserById)
 router.get('/show', getLogIn.getUserById);
+//router.get('/edit', getLogIn.getUserById);
 router.put('/edit', getLogIn.updateUser);
 module.exports = router;

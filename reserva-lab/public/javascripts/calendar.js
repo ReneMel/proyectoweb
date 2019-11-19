@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     ]
   });
-
+  //agregando comentarios para poder commitear 
+  
   calendar.render();
 });

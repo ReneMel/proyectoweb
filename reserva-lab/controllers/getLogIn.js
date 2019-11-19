@@ -30,10 +30,16 @@ const getUser = (req,res)=>{
 }
 
 const getAllUser = async (req,res)=>{
-    const user = await db.connection.any(`SELECT carnet, nombre, correo, tipo, is_admin, estado
-    FROM usuario;`);
-    res.render('adminSeeUser', {user})
+    const user = await db.connection.any(`SELECT carnet, nombre, correo, tipo, rol, estado
+    FROM usuario;`)
+    .then(data=>{
+        return res.status(200).json(data);
+    })
 }
+const renderUserView = async (req,res)=>{
+    res.render('adminSeeUser')
+}
+
 // const getUserById = async (req,res)=>{
 //     const carnet = req.query.carnet;
     
@@ -46,7 +52,7 @@ const getAllUser = async (req,res)=>{
 const getUserById = async (req,res)=>{
     const carnet = req.query.carnet;
     
-    const user = await db.connection.any(`SELECT carnet, nombre, correo, tipo, is_admin, estado
+    const user = await db.connection.any(`SELECT carnet, nombre, correo, tipo, rol, estado
     FROM usuario WHERE carnet='${carnet}';`)
     .then((data)=>{
         return res.status(200).json(data);
@@ -56,17 +62,7 @@ const getUserById = async (req,res)=>{
 const updateUser = async (req,res)=>{
     const user = req.body;
     const carnet = req.query.carnet;
-    //let name, pass, email, type;
-    //console.log(user.name);
-    
-    // user.map((object,index)=>{
-    //     name = object.name;
-    //     pass = object.password;
-    //     email = object.email;
-    //     type = object.type;
-    // });
-    console.log(user.email);
-    
+
     const update = await db.connection.any(`UPDATE usuario SET nombre='${user.name}', contra='${user.pass}', correo='${user.email}', tipo='${user.type}' WHERE carnet='${carnet}';`)
     .catch(err=>{
         console.log(err);
@@ -82,4 +78,4 @@ const updateUser = async (req,res)=>{
 
 
 
-module.exports = {getUser,getAllUser,getUserById,updateUser}
+module.exports = {getUser,getAllUser,renderUserView,getUserById,updateUser}

@@ -158,47 +158,75 @@ const getAdvancedUser = async (req,res)=>{
     }
 
     if (type == 'estudiante') {
-        await db.connection.any(`SELECT a.$1~, a.$2~, a.$3~, a.$4~, a.$5~, a.$6~, c.$2~ carrera
+        await db.connection.any(`SELECT a.$1~, a.$2~, a.$3~, a.$4~, a.$5~, a.$6~, c.$2~ carrera_materia
         FROM $7~ a INNER JOIN $8~ b
         ON a.$1~ = b.$9~ INNER JOIN $10~ c
         ON b.$11~ = c.$12~
-        WHERE a.$6~ = ${state} AND c.$2~ = ${career};`, ['carnet','nombre','correo','tipo','rol','estado','usuario','estudiante','carnet_estudiante','carrera','carrera_codigo','codigo'])
+        WHERE a.$6~ = ${state} AND c.$2~ = ${career};`, ['carnet','nombre','correo','tipo','rol','estado','usuario','estudiante',
+        'carnet_estudiante','carrera','carrera_codigo','codigo'])
         .then(data=>{
             res.status(200).json(data);
         })
         .catch(err=>{
             console.log(err);
         })
-
-        // await db.connection.any(`SELECT a.$<carnet>, a.$<nombre>, a.$<correo>, a.$<tipo>, 
-        // a.$<rol>, a.$<estado>, c.$<nombre> carrera
-        // FROM $<usuario> a INNER JOIN $<estudiante> b
-        // ON a.$<carnet> = b.$<carnet_estudiante> INNER JOIN $<carrera> c
-        // ON b.$<carrera_codigo> = c.$<codigo>
-        // WHERE a.$<estado> = $<condicional_es> AND c.$<nombre> = $<condicional_ca>`,{
-        //     carnet: 'carnet',
-        //     nombre: 'nombre',
-        //     correo: 'correo',
-        //     tipo: 'tipo',
-        //     rol: 'rol',
-        //     estado: 'estado',
-        //     usuario: 'usuario',
-        //     estudiante: 'estudiante',
-        //     'carnet_estudiante': 'carnet_estudiante',
-        //     carrera: 'carrera',
-        //     carrera_codigo: 'carrera_codigo',
-        //     codigo: 'codigo',
-        //     condicional_es: state,
-        //     condicional_ca: career
-        // })
-        // .then(data=>{
-        //     res.status(200).json(data);
-        // })
-        // .catch(err=>{
-        //     console.log(err);
-        // })
     }
-
+    else if (type == 'docente') {
+        await db.connection.any(`SELECT a.$1~, a.$2~, a.$3~, a.$4~, a.$5~, a.$6~, d.$2~ carrera_materia
+        FROM $7~ a INNER JOIN $8~ b
+        ON a.$1~ = b.$9~ INNER JOIN $10~ c
+        ON c.$9~ = b.$9~ INNER JOIN $11~ d
+        ON c.$12~ = d.$13~
+        WHERE a.$6~ = ${state} AND d.$2~ = ${subject};`, ['carnet','nombre','correo','tipo','rol','estado',
+        'usuario','docente','carnet_docente','imparte','materia','codigo_materia',
+        'codigo'])
+        .then(data=>{
+            res.status(200).json(data);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+    } 
+    else if(type == 'soporte') {
+        await db.connection.any(`SELECT a.$1~, a.$2~, a.$3~, a.$4~, a.$5~, a.$6~, 'N/A' carrera_materia
+        FROM $7~ a INNER JOIN $8~ b
+        ON a.$1~ = b.$9~
+        WHERE a.$6~ = ${state}`, ['carnet','nombre','correo','tipo','rol','estado',
+        'usuario','soporte','carnet_soporte'])
+        .then(data=>{
+            res.status(200).json(data);
+        })
+        .catch(err=>{
+            console.log(err);
+        })   
+    }
+    else {
+        await db.connection.any(`SELECT a.$1~, a.$2~, a.$3~, a.$4~, a.$5~, a.$6~, c.$2~ carrera_materia
+        FROM $7~ a INNER JOIN $8~ b
+        ON a.$1~ = b.$9~ INNER JOIN $10~ c
+        ON b.$11~ = c.$12~
+        WHERE a.$6~ = ${state}
+        UNION
+        SELECT a.$1~, a.$2~, a.$3~, a.$4~, a.$5~, a.$6~, d.$2~ carrera_materia
+        FROM $7~ a INNER JOIN $13~ b
+        ON a.$1~ = b.$14~ INNER JOIN $15~ c
+        ON c.$14~ = b.$14~ INNER JOIN $16~ d
+        ON c.$17~ = d.$12~
+        WHERE a.$6~ = ${state}
+        UNION
+        SELECT a.$1~, a.$2~, a.$3~, a.$4~, a.$5~, a.$6~, 'N/A'
+        FROM $7~ a INNER JOIN $18~ b
+        ON a.$1~ = b.$19~
+        WHERE a.$6~ = ${state}`,['carnet','nombre','correo','tipo','rol','estado','usuario','estudiante',
+        'carnet_estudiante','carrera','carrera_codigo','codigo', 'docente','carnet_docente',
+        'imparte','materia','codigo_materia','soporte','carnet_soporte'])
+        .then(data=>{
+            res.status(200).json(data);
+        })
+        .catch(err=>{
+            console.log(err);
+        })  
+    }
 }
 
 

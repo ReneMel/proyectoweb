@@ -5,7 +5,7 @@ const path = require('path')
 
 module.exports = {
   mode: 'development',
-  entry: './public/javascripts/calendar.js',
+  entry: './js_prewebpack/calendar.js',
   resolve: {
     extensions: [ '.js' ]
   },
@@ -13,6 +13,6 @@ module.exports = {
     filename: 'calendar.js',
     path: path.join(__dirname, 'public/dist')
   },
-  
+
   devtool: 'sourcemap'
 }

@@ -13,5 +13,6 @@ module.exports = {
     filename: 'calendar.js',
     path: path.join(__dirname, 'public/dist')
   },
+  
   devtool: 'sourcemap'
 }

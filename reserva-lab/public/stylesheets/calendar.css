@@ -5,6 +5,15 @@ body {
     font-size: 14px;
   }
   #calendar {
-    max-width: 900px;
+    max-width: 1080px;
     margin: 0 auto;
+  }
+  label{
+    font-size: 14px;
+  }
+  #container-fluid{
+    margin: 15px;
+  }
+  #text-muted{
+    font-size: 10px;
   }

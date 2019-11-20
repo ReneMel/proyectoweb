@@ -14,7 +14,8 @@ html(lang="en")
     script(src="/dist/calendar.js")
     title Calendario
   body
-    nav(class="navbar navbar-expand-lg navbar-light bg-light")
+    header
+      nav(class="navbar navbar-expand-lg navbar-light bg-light")
             a(class="navbar-brand" href="#"): img(src="/images/Logotipo_UCA.png" width="225" height="125")
             button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
                 span(class="navbar-toggler-icon")
@@ -25,5 +26,19 @@ html(lang="en")
                     li(class="nav-item active"): a(class="nav-link" href="#")='Búsqueda Avanzada'
                 form(class="form-inline my-2 my-lg-0")
     br
+    div(clas="container-fluid text-center")
+      label(for="Labo") Parámetros de busqueda: 
+        small(class="text-muted") (por defecto muestra todos los eventos) 
+      br
+      select(class='form_group text-center' name='Labo')
+              option(value='0') Todos
+              option(value='1') DEI Laboratorio-01
+              option(value='2') DEI Laboratorio-02
+              option(value='3') DEI Laboratorio-03
+              option(value='4') DEI Laboratorio-04
+              option(value='5') DEI Laboratorio-05
+              option(value='6') DEI Laboratorio-06
+              option(value='7') DEI Laboratorio-07               
+      br 
     div(id="calendar" class="calendar")  
   

@@ -1,15 +1,16 @@
 const searchBtn = document.getElementById('searchBtn');
 const editBtn = document.getElementById('editBtn');
 const closeBtn = document.getElementById('closeBtn');
+const advancedBtn = document.getElementById('advancedBtn');
+const filterBtn = document.getElementById('filterBtn');
 
 //Loading the users data
 (async function loadUser(){
     fetch('http://localhost:3000/users/fill')
     .then(res=>{
-        return res.json();
+        return res.json();0
     })
     .then(data=>{
-        console.log(data);
         let table_body = document.getElementById('table_body');
         table_body.innerHTML='';
 
@@ -43,6 +44,7 @@ const closeBtn = document.getElementById('closeBtn');
             <td class='align-middle'>${object.nombre}</td>
             <td class='align-middle'>${object.correo}</td>
             <td class='align-middle'>${object.tipo}</td>
+            <td class='align-middle'>${object.carrera_materia}</td>
             <td class='align-middle'>${role}</td>
             <td class='align-middle' style='color: ${color}'>${stateU}</td>
             <td class='align-middle'>
@@ -93,6 +95,7 @@ searchBtn.addEventListener('click', async event=>{
             <td class='align-middle'>${object.nombre}</td>
             <td class='align-middle'>${object.correo}</td>
             <td class='align-middle'>${object.tipo}</td>
+            <td class='align-middle'>${object.carrera_materia}</td>
             <td class='align-middle'>${role}</td>
             <td class='align-middle' style='color: ${color}'>${stateU}</td>
             <td class='align-middle'>
@@ -103,7 +106,7 @@ searchBtn.addEventListener('click', async event=>{
         });
     })
 });
-//Loading data to the modals
+//Loading data to the editModal
 $("#exampleModalCenter").on("show.bs.modal", async e=>{
     const carnet = e.relatedTarget.innerText;
     const userCarnet = document.getElementById('userCarnet');
@@ -159,8 +162,9 @@ editBtn.addEventListener('click', async event=>{
         console.log(err);
     });
 });
-//Updates the table
+//Refreshes the table
 closeBtn.addEventListener('click', async event=>{
+    event.preventDefault();
     fetch('http://localhost:3000/users/fill')
     .then(res=>{
         return res.json();
@@ -207,5 +211,51 @@ closeBtn.addEventListener('click', async event=>{
             </td>`;
             table_body.appendChild(new_row);
         })
+    });
+})
+//Loading data to the advancedModal
+advancedBtn.addEventListener('click', async event=>{
+    const career = document.getElementById('career');
+    const subject = document.getElementById('subject');
+    event.preventDefault();
+    await fetch('http://localhost:3000/users/fillAdvanced?career=true')
+    .then(res=>{
+        return res.json();
+    })
+    .then(data=>{
+        data.map((object,index)=>{
+            const new_option = document.createElement('option');
+            new_option.innerText = object.carrera;
+            career.appendChild(new_option);
+        });
+    })
+
+    await fetch('http://localhost:3000/users/fillAdvanced?subject=false')
+    .then(res=>{
+        return res.json();
+    })
+    .then(data=>{
+        data.map((object,index)=>{
+            const new_option = document.createElement('option');
+            new_option.innerText = object.materia;
+            subject.appendChild(new_option);
+        });
+    })
+    
+})
+//Searching by advanced settings
+filterBtn.addEventListener('click', async event=>{
+    event.preventDefault();
+    const type = document.getElementById('type');
+    const state = document.getElementById('state');
+    const subject = document.getElementById('subject');
+    const career = document.getElementById('career');
+    
+    await fetch(`http://localhost:3000/users/showAdvanced?type=${type.value}&state=${state.value}`)
+    .then(res=>{
+        return res.json();
+    })
+    .then(data=>{
+        console.log(data);   
     });
 })

@@ -15,7 +15,7 @@ html(lang="en")
                 ul(class="navbar-nav mr-auto")
                     li(class="nav-item active"): a(class="nav-link" href="#")='Reservas'
                     li(class="nav-item active"): a(class="nav-link" href="#")='Reportes'
-                    li(class="nav-item active"): a(class="nav-link" href="#")='Búsqueda Avanzada'
+                    li(class="nav-item active"): a(class="nav-link" href="users/fillAdvanced" data-toggle='modal' data-target='#advancedModal' id='advancedBtn')='Búsqueda Avanzada'
                 form(method='get' action='users/search' class="form-inline my-2 my-lg-0")
                     input(class="form-control mr-sm-2" type="search" name='carnet' placeholder="Carnet" aria-label="Search" id='searchIn')
                     button(class="btn btn-outline-success my-2 my-sm-0" type='submit' id='searchBtn')='Buscar'
@@ -29,11 +29,12 @@ html(lang="en")
                             th(scope="col")='Nombre'
                             th(scope="col")='Correo'
                             th(scope="col")='Tipo'
+                            th(scope='col')='Carrera/Materia'
                             th(scope="col")='Rol'
                             th(scope="col")='Estado'
                             th(scope="col")='Acción'
                     tbody(id='table_body')
-        //- Modal
+        //- editModal
         div(class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true")    
             div(class="modal-dialog modal-dialog-centered" role="document")
                 div(class="modal-content")
@@ -60,6 +61,35 @@ html(lang="en")
                     div(class="modal-footer")
                         button(class="btn btn-secondary" data-dismiss="modal" id='closeBtn')='Cerrar'
                         a(href='users/edit' class="btn btn-primary" id='editBtn')='Guardar'                     
+        //- advancedModal
+        div(class="modal fade" id="advancedModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true")    
+            div(class="modal-dialog modal-dialog-centered" role="document")
+                div(class="modal-content")
+                    div(class="modal-header")
+                        h5(class="modal-title" id="userCarnet")='Busqueda avanzada'
+                        button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                            span(aria-hidden="true") &times;
+                    div(class="modal-body")
+                        div(class="form-group")
+                            label(for="type")='Tipo'
+                            select(class="form-control" id="type" name='type')
+                                option='estudiante'
+                                option='docente'
+                                option='soporte'
+                        div(class="form-group")
+                            label(for="state")='Estado'
+                            select(class="form-control" id="state" name='state')
+                                option='activado'
+                                option='desactivado'
+                        div(class="form-group")
+                            label(for="state")='Carrera'
+                            select(class="form-control" id="career" name='career')
+                        div(class="form-group")
+                            label(for="state")='Materia'
+                            select(class="form-control" id="subject" name='subject')
+                    div(class="modal-footer")
+                        button(class="btn btn-secondary" data-dismiss="modal" id='closeAdBtn')='Cerrar'
+                        a(href='users/showAdvanced' class="btn btn-primary" id='filterBtn')='Filtrar'
                         
     script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous")

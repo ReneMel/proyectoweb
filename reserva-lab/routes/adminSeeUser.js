@@ -7,6 +7,8 @@ router.get('/', getLogIn.renderUserView);
 router.get('/search', getLogIn.getUserById)
 router.get('/show', getLogIn.getUserById);
 router.get('/fill', getLogIn.getAllUser);
+router.get('/fillAdvanced', getLogIn.getAttribute);
+router.get('/showAdvanced', getLogIn.getAdvancedUser)
 /*PUT*/
 router.put('/edit', getLogIn.updateUser);
 

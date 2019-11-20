@@ -48,5 +48,19 @@ router.get('/', function(req, res, next) {
   })
 
   router.get('/json', GetLogIn.getEventos);
+  router.get('/jsonsoporte', function(req, res, rext){
+    res.status(200).json(
+      [   {
+        title: 'Soporte',
+        start: '2019-11-18T14:00:00',
+        end: '2019-11-18T15:00:00'
+      },
+      {
+        title: 'Soporte',
+        start: '2019-11-19T14:00:00',
+        end: '2019-11-19T15:00:00'
+      }]
+    )
+  })
 
 module.exports = router;

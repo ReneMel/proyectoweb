@@ -29,6 +29,11 @@ document.addEventListener('DOMContentLoaded', function() {
         url: 'http://localhost:3000/json', // use the `url` property
         color: 'yellow',    // an option!
         textColor: 'black'  // an option!
+      },
+      {
+        url: 'http://localhost:3000/jsonsoporte',
+        color:'blue',  
+        textColor:'white'
       }
   
       // any other sources...

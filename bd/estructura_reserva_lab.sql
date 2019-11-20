@@ -78,7 +78,7 @@ create table solicitud(
 	hora_inicio time not null,
 	hora_fin time not null,
 	fecha_solicitud date not null,
-	estado text not null,
+	estado text not null check (estado in ('pendiente', 'confirmada', 'rechazada')),
 	responsable_carnet varchar(8) not null,
 	codigo_laboratorio int not null,
 	codigo_materia text not null

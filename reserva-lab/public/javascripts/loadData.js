@@ -251,11 +251,12 @@ filterBtn.addEventListener('click', async event=>{
     const subject = document.getElementById('subject');
     const career = document.getElementById('career');
     
-    await fetch(`http://localhost:3000/users/showAdvanced?type=${type.value}&state=${state.value}`)
+    await fetch(`http://localhost:3000/users/showAdvanced?type=${type.value}&state=${state.value}&subject=${subject.value}&career=${career.value}`)
     .then(res=>{
         return res.json();
     })
     .then(data=>{
-        console.log(data);   
+        console.log(data);
+        
     });
 })

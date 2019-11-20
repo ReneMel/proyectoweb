@@ -132,11 +132,29 @@ const getAttribute = async (req,res)=>{
 const getAdvancedUser = async (req,res)=>{
     const type = req.query.type;
     let state = req.query.state;
-    if (state == 'activado') {
+    let subject = req.query.subject;
+    let career = req.query.career;
+
+    if (state == 'todos') {
+        state = 'a.estado'
+    }
+    else if (state == 'activado') {
         state = true;
     }
     else {
         state = false;
+    }
+    if (career == 'todas') {
+        career = 'c.nombre';
+    }
+    else {
+        career = `'${career}'`;
+    }
+    if (subject == 'todas') {
+        subject = 'd.nombre';
+    }
+    else {
+        subject = `'${subject}'`;
     }
 
     if (type == 'estudiante') {
@@ -144,26 +162,43 @@ const getAdvancedUser = async (req,res)=>{
         FROM $7~ a INNER JOIN $8~ b
         ON a.$1~ = b.$9~ INNER JOIN $10~ c
         ON b.$11~ = c.$12~
-        WHERE a.$6~ = ${state};`, ['carnet','nombre','correo','tipo','rol','estado','usuario',
-        'estudiante','carnet_estudiante','carrera','carrera_codigo','codigo'])
+        WHERE a.$6~ = ${state} AND c.$2~ = ${career};`, ['carnet','nombre','correo','tipo','rol','estado','usuario','estudiante','carnet_estudiante','carrera','carrera_codigo','codigo'])
         .then(data=>{
             res.status(200).json(data);
         })
         .catch(err=>{
             console.log(err);
-        })        
-    }
-    else if (type == 'docente') {
-        
-    }
-    else {
-        
+        })
+
+        // await db.connection.any(`SELECT a.$<carnet>, a.$<nombre>, a.$<correo>, a.$<tipo>, 
+        // a.$<rol>, a.$<estado>, c.$<nombre> carrera
+        // FROM $<usuario> a INNER JOIN $<estudiante> b
+        // ON a.$<carnet> = b.$<carnet_estudiante> INNER JOIN $<carrera> c
+        // ON b.$<carrera_codigo> = c.$<codigo>
+        // WHERE a.$<estado> = $<condicional_es> AND c.$<nombre> = $<condicional_ca>`,{
+        //     carnet: 'carnet',
+        //     nombre: 'nombre',
+        //     correo: 'correo',
+        //     tipo: 'tipo',
+        //     rol: 'rol',
+        //     estado: 'estado',
+        //     usuario: 'usuario',
+        //     estudiante: 'estudiante',
+        //     'carnet_estudiante': 'carnet_estudiante',
+        //     carrera: 'carrera',
+        //     carrera_codigo: 'carrera_codigo',
+        //     codigo: 'codigo',
+        //     condicional_es: state,
+        //     condicional_ca: career
+        // })
+        // .then(data=>{
+        //     res.status(200).json(data);
+        // })
+        // .catch(err=>{
+        //     console.log(err);
+        // })
     }
 
-    /*SELECT u.carnet, u.nombre, u.correo, u.tipo, u.rol, u.estado, c.nombre carrera
-    FROM usuario u INNER JOIN estudiante e
-    ON u.carnet = e.carnet_estudiante INNER JOIN carrera c
-    ON e.carrera_codigo = c.codigo;*/ 
 }
 
 

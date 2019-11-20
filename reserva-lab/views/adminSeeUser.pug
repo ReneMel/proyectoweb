@@ -73,20 +73,25 @@ html(lang="en")
                         div(class="form-group")
                             label(for="type")='Tipo'
                             select(class="form-control" id="type" name='type')
+                                option='todos'
                                 option='estudiante'
                                 option='docente'
                                 option='soporte'
                         div(class="form-group")
                             label(for="state")='Estado'
                             select(class="form-control" id="state" name='state')
+                                option='todos'
                                 option='activado'
                                 option='desactivado'
                         div(class="form-group")
+                            //-input(class="form-check-input" type="checkbox" value="" id="defaultCheck1")
                             label(for="state")='Carrera'
                             select(class="form-control" id="career" name='career')
+                                option='todas'
                         div(class="form-group")
                             label(for="state")='Materia'
                             select(class="form-control" id="subject" name='subject')
+                                option='todas'                            
                     div(class="modal-footer")
                         button(class="btn btn-secondary" data-dismiss="modal" id='closeAdBtn')='Cerrar'
                         a(href='users/showAdvanced' class="btn btn-primary" id='filterBtn')='Filtrar'

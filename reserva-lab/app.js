@@ -3,14 +3,20 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const passport = require('passport');
+//const flash =  require('connect-flash');
+//const session = require('express-session');
 
 var indexRouter = require('./routes/index');
 var logIn = require('./routes/login');
 var adminSeeUser = require('./routes/adminSeeUser');
 var usersRouter = require('./routes/users');
 var informe = require('./routes/informe');
+var signUp = require('./routes/signUp');
 
+// initialization
 var app = express();
+require('./models/passport');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,9 +27,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(passport.initialize());
+app.use(passport.session());
+//app.use(flash());
+//app.use(session({cookie: { maxAge: 60000 }}));
+
+// app.all('/', (req,res)=>{
+//   req.flash('test', 'it worked');
+//   res.redirect('/test');
+// })
+
+// app.all('/test', function(req, res){
+//   res.send(JSON.stringify(req.flash('test')));
+// });
 
 app.use('/', indexRouter);
 app.use('/login', logIn);
+app.use('/signUp', signUp);
 app.use('/users', adminSeeUser);
 //app.use('/admin/users', adminSeeUser);
 //app.use('/users', usersRouter);

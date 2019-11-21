@@ -2,17 +2,15 @@ var express = require('express');
 var router = express.Router();
 const passport = require('passport')
 
-/* GET login page*/
 router.get('/', (req, res)=>{
-    res.render('login');
+    res.render('signUp');
 });
 
-router.post('/signin', (req,res)=>{
-    passport.authenticate('local.signin', {
-        successRedirect: '/users',
+router.post('/create', (req,res)=>{
+    passport.authenticate('local.signup', {
+        successRedirect: '/login',
         failureRedirect: '/',
         failureFlash: true
     })(req,res);
-});
-
+})
 module.exports = router;

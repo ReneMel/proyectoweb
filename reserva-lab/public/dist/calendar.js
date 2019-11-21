@@ -81,10 +81,92 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./public/javascripts/calendar.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./js_prewebpack/calendar.js");
 /******/ })
 /************************************************************************/
 /******/ ({
+
+/***/ "./js_prewebpack/calendar.js":
+/*!***********************************!*\
+  !*** ./js_prewebpack/calendar.js ***!
+  \***********************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _fullcalendar_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @fullcalendar/core */ "./node_modules/@fullcalendar/core/main.esm.js");
+/* harmony import */ var _fullcalendar_interaction__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @fullcalendar/interaction */ "./node_modules/@fullcalendar/interaction/main.esm.js");
+/* harmony import */ var _fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @fullcalendar/daygrid */ "./node_modules/@fullcalendar/daygrid/main.esm.js");
+/* harmony import */ var _fullcalendar_timegrid__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fullcalendar/timegrid */ "./node_modules/@fullcalendar/timegrid/main.esm.js");
+/* harmony import */ var _fullcalendar_list__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fullcalendar/list */ "./node_modules/@fullcalendar/list/main.esm.js");
+
+
+
+
+
+
+
+let btntrigger= document.getElementById('buttonTrigger');
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  var calendarEl = document.getElementById('calendar');
+  //alert("The URL of this page is: " + window.location.href);
+  var loc=window.location.href;
+  var opt=0;
+  var opt2='confirmado';
+
+  for (let i = 0; i < loc.length; i++) {
+    if(loc.charAt(i)=='=' && loc.charAt(i-1)=='l'){
+     opt = loc.charAt(i+1);
+    }
+    if(loc.charAt(i)=='=' && loc.charAt(i-1)=='e'){
+      opt2='confirmado'
+      console.log(opt2);
+      console.log(opt);
+    }
+  }
+  
+
+
+  var calendar = new _fullcalendar_core__WEBPACK_IMPORTED_MODULE_0__["Calendar"](calendarEl, {
+    plugins: [ _fullcalendar_interaction__WEBPACK_IMPORTED_MODULE_1__["default"], _fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_2__["default"], _fullcalendar_timegrid__WEBPACK_IMPORTED_MODULE_3__["default"], _fullcalendar_list__WEBPACK_IMPORTED_MODULE_4__["default"] ],
+    header: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+    },
+    defaultDate: '2019-11-12',
+    navLinks: true, // can click day/week names to navigate views
+    editable: true,
+    eventLimit: true, // allow "more" link when too many events
+    eventSources: [
+
+      // your event source
+      {
+        url: `http://localhost:3000/evento?Labo=${opt}`, // use the `url` property
+        color: 'yellow',    // an option!
+        textColor: 'black'  // an option!
+      },
+      {
+        url: `http://localhost:3000/sp?Labo=${opt}`,
+        color:'blue',  
+        textColor:'white'
+      }
+  
+      // any other sources...
+  
+    ]
+  });
+  //agregando comentarios para poder commitear 
+  
+  calendar.render();
+});
+
+
+/***/ }),
 
 /***/ "./node_modules/@fullcalendar/core/main.esm.js":
 /*!*****************************************************!*\
@@ -14318,103 +14400,6 @@ var main = Object(_fullcalendar_core__WEBPACK_IMPORTED_MODULE_0__["createPlugin"
 /* harmony default export */ __webpack_exports__["default"] = (main);
 
 
-
-/***/ }),
-
-/***/ "./public/javascripts/calendar.js":
-/*!****************************************!*\
-  !*** ./public/javascripts/calendar.js ***!
-  \****************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _fullcalendar_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @fullcalendar/core */ "./node_modules/@fullcalendar/core/main.esm.js");
-/* harmony import */ var _fullcalendar_interaction__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @fullcalendar/interaction */ "./node_modules/@fullcalendar/interaction/main.esm.js");
-/* harmony import */ var _fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @fullcalendar/daygrid */ "./node_modules/@fullcalendar/daygrid/main.esm.js");
-/* harmony import */ var _fullcalendar_timegrid__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fullcalendar/timegrid */ "./node_modules/@fullcalendar/timegrid/main.esm.js");
-/* harmony import */ var _fullcalendar_list__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fullcalendar/list */ "./node_modules/@fullcalendar/list/main.esm.js");
-
-
-
-
-
-
-document.addEventListener('DOMContentLoaded', function() {
-  var calendarEl = document.getElementById('calendar');
-
-  var calendar = new _fullcalendar_core__WEBPACK_IMPORTED_MODULE_0__["Calendar"](calendarEl, {
-    plugins: [ _fullcalendar_interaction__WEBPACK_IMPORTED_MODULE_1__["default"], _fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_2__["default"], _fullcalendar_timegrid__WEBPACK_IMPORTED_MODULE_3__["default"], _fullcalendar_list__WEBPACK_IMPORTED_MODULE_4__["default"] ],
-    header: {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-    },
-    defaultDate: '2019-11-12',
-    navLinks: true, // can click day/week names to navigate views
-    editable: true,
-    eventLimit: true, // allow "more" link when too many events
-    events: [
-      {
-        title: 'All Day Event',
-        start: '2019-11-01',
-      },
-      {
-        title: 'Long Event',
-        start: '2019-11-07',
-        end: '2019-11-10'
-      },
-      {
-        id: 999,
-        title: 'Repeating Event',
-        start: '2019-11-09T16:00:00'
-      },
-      {
-        id: 999,
-        title: 'Repeating Event',
-        start: '2019-11-16T16:00:00'
-      },
-      {
-        title: 'Conference',
-        start: '2019-11-11',
-        end: '2019-11-13'
-      },
-      {
-        title: 'Meeting',
-        start: '2019-11-12T10:30:00',
-        end: '2019-11-12T12:30:00'
-      },
-      {
-        title: 'Lunch',
-        start: '2019-11-12T12:00:00'
-      },
-      {
-        title: 'Meeting',
-        start: '2019-11-12T14:30:00'
-      },
-      {
-        title: 'Happy Hour',
-        start: '2019-11-12T17:30:00'
-      },
-      {
-        title: 'Dinner',
-        start: '2019-11-12T20:00:00'
-      },
-      {
-        title: 'Birthday Party',
-        start: '2019-11-13T07:00:00'
-      },
-      {
-        title: 'Click for Google',
-        url: 'http://google.com/',
-        start: '2019-11-28'
-      }
-    ]
-  });
-
-  calendar.render();
-});
 
 /***/ })
 

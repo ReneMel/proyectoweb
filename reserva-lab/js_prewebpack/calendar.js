@@ -5,11 +5,29 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 
 
+let btntrigger= document.getElementById('buttonTrigger');
+
 
 
 document.addEventListener('DOMContentLoaded', function() {
   var calendarEl = document.getElementById('calendar');
+  //alert("The URL of this page is: " + window.location.href);
+  var loc=window.location.href;
+  var opt=0;
+  var opt2='confirmado';
+
+  for (let i = 0; i < loc.length; i++) {
+    if(loc.charAt(i)=='=' && loc.charAt(i-1)=='l'){
+     opt = loc.charAt(i+1);
+    }
+    if(loc.charAt(i)=='=' && loc.charAt(i-1)=='e'){
+      opt2='confirmado'
+      console.log(opt2);
+      console.log(opt);
+    }
+  }
   
+
 
   var calendar = new Calendar(calendarEl, {
     plugins: [ interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin ],
@@ -26,12 +44,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // your event source
       {
-        url: 'http://localhost:3000/json', // use the `url` property
+        url: `http://localhost:3000/evento?Labo=${opt}`, // use the `url` property
         color: 'yellow',    // an option!
         textColor: 'black'  // an option!
       },
       {
-        url: 'http://localhost:3000/jsonsoporte',
+        url: `http://localhost:3000/sp?Labo=${opt}`,
         color:'blue',  
         textColor:'white'
       }

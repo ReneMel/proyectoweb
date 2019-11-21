@@ -15,28 +15,90 @@ html(lang="en")
                 ul(class="navbar-nav mr-auto")
                     li(class="nav-item active"): a(class="nav-link" href="#")='Reservas'
                     li(class="nav-item active"): a(class="nav-link" href="#")='Reportes'
-                    li(class="nav-item active"): a(class="nav-link" href="#")='Búsqueda Avanzada'
-                form(class="form-inline my-2 my-lg-0")
-                    input(class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search")
-                    button(class="btn btn-outline-success my-2 my-sm-0" type="submit")='Buscar'
+                    li(class="nav-item active"): a(class="nav-link" href="users/fillAdvanced" data-toggle='modal' data-target='#advancedModal' id='advancedBtn')='Búsqueda Avanzada'
+                form(method='get' action='users/search' class="form-inline my-2 my-lg-0")
+                    div(class="input-group mb-3")
+                        input(input type="text" class="form-control" placeholder="Search" id='searchIn')
+                        div(class="input-group-append")
+                            button(class="btn btn-outline-success my-2 my-sm-0" type='submit' id='searchBtn')='Buscar'
+                            button(type="button" class="btn btn-outline-danger my-2 my-sm-0" id='cancelBtn')='Cancelar'
         br
         div(class='container')
-            table(class="table")
-                thead
-                    tr
-                        th(scope="col")='Usuario'
-                        th(scope="col")='Nombres'
-                        th(scope="col")='Carné'
-                        th(scope="col")='Correo'
-                        th(scope="col")='Rol'
-                        th(scope="col")='Estado'
+            section
+                table(class="table table-hover table-responsive text-center")
+                    thead
+                        tr(class='table-dark')
+                            th(scope="col")='Carnet'
+                            th(scope="col")='Nombre'
+                            th(scope="col")='Correo'
+                            th(scope="col")='Tipo'
+                            th(scope='col')='Carrera/Materia'
+                            th(scope="col")='Rol'
+                            th(scope="col")='Estado'
+                            th(scope="col")='Acción'
+                    tbody(id='table_body')
+        //- editModal
+        div(class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true")    
+            div(class="modal-dialog modal-dialog-centered" role="document")
+                div(class="modal-content")
+                    div(class="modal-header")
+                        h5(class="modal-title" id="userCarnet")
+                        button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                            span(aria-hidden="true") &times;
+                    div(class="modal-body")
+                        div(class="form-group")
+                            label(for="userName")='Nombre'
+                            input(type="text" class="form-control" id="userName" placeholder="Nombre" name='name')
+                        div(class="form-group")
+                            label(for="userPass")='Contraseña'
+                            input(type="password" class="form-control" id="userPass" placeholder="Contraseña" required="required" name='password')
+                        div(class="form-group")
+                            label(for="userEmail")='Correo'
+                            input(type="text" class="form-control" id="userEmail" placeholder="example@uca.edu.sv" name='email')
+                        div(class="form-group")
+                            label(for="userType")='Tipo'
+                            select(class="form-control" id="userType" name='type')
+                                option='estudiante'
+                                option='docente'
+                                option='soporte'
+                    div(class="modal-footer")
+                        button(class="btn btn-secondary" data-dismiss="modal" id='closeBtn')='Cerrar'
+                        a(href='users/edit' class="btn btn-primary" id='editBtn')='Guardar'                     
+        //- advancedModal
+        div(class="modal fade" id="advancedModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true")    
+            div(class="modal-dialog modal-dialog-centered" role="document")
+                div(class="modal-content")
+                    div(class="modal-header")
+                        h5(class="modal-title" id="userCarnet")='Busqueda avanzada'
+                        button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                            span(aria-hidden="true") &times;
+                    div(class="modal-body")
+                        div(class="form-group")
+                            label(for="type")='Tipo'
+                            select(class="form-control" id="type" name='type')
+                                option='todos'
+                                option='estudiante'
+                                option='docente'
+                                option='soporte'
+                        div(class="form-group")
+                            label(for="state")='Estado'
+                            select(class="form-control" id="state" name='state')
+                                option='todos'
+                                option='activado'
+                                option='desactivado'
+                        div(class="form-group")
+                            label(for="state")='Carrera'
+                            select(class="form-control" id="career" name='career')
+                                option='todas'
+                        div(class="form-group")
+                            label(for="state")='Materia'
+                            select(class="form-control" id="subject" name='subject')
+                                option='todas'                            
+                    div(class="modal-footer")
+                        button(class="btn btn-secondary" data-dismiss="modal" id='closeAdBtn')='Cerrar'
+                        a(href='users/showAdvanced' class="btn btn-primary" id='filterBtn' data-dismiss='modal')='Filtrar'
                         
-
-
-                    
-
-
     script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous")
     script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous")
-        
+    script(src="/javascripts/loadData.js")

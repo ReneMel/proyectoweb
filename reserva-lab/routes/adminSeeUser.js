@@ -11,5 +11,6 @@ router.get('/fillAdvanced', getLogIn.getAttribute);
 router.get('/showAdvanced', getLogIn.getAdvancedUser)
 /*PUT*/
 router.put('/edit', getLogIn.updateUser);
+router.put('/turn', getLogIn.turnUser)
 
 module.exports = router;

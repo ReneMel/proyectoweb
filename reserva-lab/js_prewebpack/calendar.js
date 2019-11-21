@@ -22,8 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     if(loc.charAt(i)=='=' && loc.charAt(i-1)=='e'){
       opt2='confirmado'
-      console.log(opt2);
-      console.log(opt);
+     // console.log(opt2);
+      //console.log(opt);
     }
   }
   

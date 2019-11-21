@@ -27,13 +27,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
-
-
   var calendar = new Calendar(calendarEl, {
     plugins: [ interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin ],
     header: {
       left: 'prev,next today',
-      center: 'title',
+      center: 'title addEventButton' ,
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     },
     defaultDate: '2019-11-12',
@@ -56,8 +54,42 @@ document.addEventListener('DOMContentLoaded', function() {
   
       // any other sources...
   
-    ]
+    ],
+    customButtons: {
+      addEventButton: {
+        text: 'Add new event',
+        click: function () {
+          var dateStr = prompt('Enter date in YYYY-MM-DD format');
+          var date = moment(dateStr);
+  
+          if (date.isValid()) {
+            $('#calendar').fullCalendar('renderEvent', {
+              title: 'Dynamic event',
+              start: date,
+              allDay: true
+            });
+          } else {
+            alert('Invalid Date');
+          }
+  
+        }
+      }
+    },
+    dayClick: function (date, jsEvent, view) {
+      var date = moment(date);
+  
+      if (date.isValid()) {
+        $('#calendar').fullCalendar('renderEvent', {
+          title: 'Dynamic event from date click',
+          start: date,
+          allDay: true
+        });
+      } else {
+        alert('Invalid');
+      }
+    },
   });
+  
   //agregando comentarios para poder commitear 
   
   calendar.render();

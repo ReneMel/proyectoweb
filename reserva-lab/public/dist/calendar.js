@@ -124,18 +124,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     if(loc.charAt(i)=='=' && loc.charAt(i-1)=='e'){
       opt2='confirmado'
-      console.log(opt2);
-      console.log(opt);
+     // console.log(opt2);
+      //console.log(opt);
     }
   }
   
-
-
   var calendar = new _fullcalendar_core__WEBPACK_IMPORTED_MODULE_0__["Calendar"](calendarEl, {
     plugins: [ _fullcalendar_interaction__WEBPACK_IMPORTED_MODULE_1__["default"], _fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_2__["default"], _fullcalendar_timegrid__WEBPACK_IMPORTED_MODULE_3__["default"], _fullcalendar_list__WEBPACK_IMPORTED_MODULE_4__["default"] ],
     header: {
       left: 'prev,next today',
-      center: 'title',
+      center: 'title addEventButton' ,
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     },
     defaultDate: '2019-11-12',
@@ -158,8 +156,42 @@ document.addEventListener('DOMContentLoaded', function() {
   
       // any other sources...
   
-    ]
+    ],
+    customButtons: {
+      addEventButton: {
+        text: 'Add new event',
+        click: function () {
+          var dateStr = prompt('Enter date in YYYY-MM-DD format');
+          var date = moment(dateStr);
+  
+          if (date.isValid()) {
+            $('#calendar').fullCalendar('renderEvent', {
+              title: 'Dynamic event',
+              start: date,
+              allDay: true
+            });
+          } else {
+            alert('Invalid Date');
+          }
+  
+        }
+      }
+    },
+    dayClick: function (date, jsEvent, view) {
+      var date = moment(date);
+  
+      if (date.isValid()) {
+        $('#calendar').fullCalendar('renderEvent', {
+          title: 'Dynamic event from date click',
+          start: date,
+          allDay: true
+        });
+      } else {
+        alert('Invalid');
+      }
+    },
   });
+  
   //agregando comentarios para poder commitear 
   
   calendar.render();

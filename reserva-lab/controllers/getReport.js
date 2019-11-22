@@ -14,8 +14,6 @@ const getAdvancedReport = async (req,res)=>{
     let nombreMat = req.query.nombreMat;
     let carnetResponsable = req.query.carnetResponsable;
 
-    console.log(fechaSol);
-
     /*await db.connection.any(`SELECT s.id as "Número de solicitud", s.fecha_solicitud as "Fecha de solicitud",
      s.fecha_inicio as "Fecha de reserva", CONCAT('de ', s.hora_inicio, ' a ', s.hora_fin) as "Duración", 
      s.estado as "Estado de solicitud", l.nombre as "Laboratorio solicitado", m.nombre as "Materia", u.nombre as "Responsable"
@@ -25,8 +23,8 @@ const getAdvancedReport = async (req,res)=>{
     WHERE s.hora_inicio = $1 AND s.hora_fin = $2 AND l.nombre = $3 AND m.nombre = $4 AND s.estado = $5 
     AND s.responsable_carnet = $6 AND s.fecha_solicitud = $7 AND s.fecha_inicio = $8;
     `,[horaIni,horaFin,nombreLab,nombreMat,estadoSol,carnetResponsable,fechaSol,fechaIni])*/
-    await db.connection.any(`SELECT s.$1~ as "Número de solicitud", s.$2~ as "Fecha de solicitud", s.$3~ as "Fecha de reserva",
-    CONCAT('de ', s.$4~, ' a ', s.$5~) as "Duración", s.$6~ as "Estado de solicitud", l.$7~ as "Laboratorio solicitado",
+    await db.connection.any(`SELECT s.$1~ as "No_de_solicitud", s.$2~ as "Fecha_de_solicitud", s.$3~ as "Fecha_de_reserva",
+    CONCAT('de ', s.$4~, ' a ', s.$5~) as "Duracion", s.$6~ as "Estado_de_solicitud", l.$7~ as "Laboratorio_solicitado",
     m.$7~ as "Materia", u.$7~ as "Responsable"
     FROM (($8~ s INNER JOIN $9~ l ON s.$10~ = l.$11~)
     INNER JOIN $12~ m ON s.$13~ = m.$11~)
@@ -40,7 +38,6 @@ const getAdvancedReport = async (req,res)=>{
     .catch(err=>{
         console.log(err);
     })
-    console.log(fechaSol);
 }
 
 module.exports = {

@@ -12,13 +12,12 @@ html(lang="en")
             div(class="navtitle")
                 h1(class="navtitle-text")='Sistema de Reservas Edificio Jon Cortina'
         div(class="login-form")
-            form(method="post")
-                h2(class="text-center")='Login'
+            form(action='login/signin' method="post")
+                h2(class="text-center")='SignIn'
                 div(class="form-group")
-                    div.error=err.msg
                     input(type="text" class="form-control" placeholder="Usuario" required="required" name='user')
                 div(class="form-group")
-                    input(type="password" class="form-control" placeholder="Contraseña" required="required" name='password')
+                    input(type="password" class="form-control" placeholder="Contraseña" required="required" name='pass')
                 div(class="form-group")
                     button(type="submit" class="btn btn-primary btn-block")='Iniciar sesión'
-            p(class="text-center"): a(href="#")='Crear usuario'
+            p(class="text-center"): a(href="/signUp")='Crear usuario'

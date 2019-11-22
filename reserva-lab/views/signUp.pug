@@ -1,0 +1,35 @@
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous")
+        link(rel="stylesheet" href="/stylesheets/login.css")
+        title Sign up
+    body
+        nav(class="navbar navbar-expand-lg navbar-light bg-light")
+            img(src="/images/Logotipo_UCA.png" width="225" height="125")
+            div(class="navtitle")
+                h1(class="navtitle-text")='Sistema de Reservas Edificio Jon Cortina'
+        div(class="login-form")
+            form(action='signUp/create' method="post")
+                h2(class="text-center")='SignUp'
+                div(class="form-group")
+                    input(type="text" class="form-control" placeholder="Carnet" required="required" name='user')
+                div(class="form-group")
+                    input(type="text" class="form-control" placeholder="Nombres" required="required" name='name')
+                div(class="form-group")
+                    input(type="text" class="form-control" placeholder="Apellidos" required="required" name='lastname')
+                div(class="form-group")
+                    input(type="email" class="form-control" placeholder="@uca.edu.sv" required="required" name='email')
+                div(class="form-group")
+                    input(type="password" class="form-control" placeholder="Contraseña" required="required" name='pass')
+                div(class="form-group")
+                    //-label(for="type")='Tipo'
+                    //-select(class="form-control" id="type" name='type')
+                        option='estudiante'
+                        option='docente'
+                        option='soporte'
+                div(class="form-group")
+                    button(type="submit" class="btn btn-primary btn-block")='Crear sesión'
+            p(class="text-center"): a(href="/login")='Ingresar sesión'

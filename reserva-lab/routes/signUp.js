@@ -3,17 +3,15 @@ var router = express.Router();
 const passport = require('passport')
 const {isNotLoggedIn} = require('../models/auth');
 
-/* GET login page*/
 router.get('/', isNotLoggedIn, (req, res)=>{
     res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-    res.render('login');
+    res.render('signUp');
 });
 
-router.post('/signin', (req,res)=>{
-    passport.authenticate('local.signin', {
-        successRedirect: '/calendar',
-        failureRedirect: '/login'
+router.post('/create', (req,res)=>{
+    passport.authenticate('local.signup', {
+        successRedirect: '/login',
+        failureRedirect: '/'
     })(req,res);
-});
-
+})
 module.exports = router;

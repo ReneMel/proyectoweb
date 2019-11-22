@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const router = express.Router();
+const {isLoggedIn} = require('../models/auth')
 
 var GetLogIn = require('../controllers/getLogIn')
 //const eventos= GetLogIn.getEvents()
@@ -12,10 +13,18 @@ router.get('/eByU', GetLogIn.getEventbyUser)
 router.get('/matBU',GetLogIn.getMaterias)
 
 /* GET home page. */
-router.get('/calendar', function(req, res, next) {
-
+router.get('/calendar', isLoggedIn, function(req, res, next) {
+  // if(req.session.passport == undefined) {
+  //   res.redirect('/login');
+  // }
+  // else {
+  //   res.render('index')
+  // } 
+  console.log(req.session);
+  
   res.render('index')
-})
+});
+
 router.get(`/Evento`,GetLogIn.getEventoById)
 
 router.post('/calendar',function(req,res,next){

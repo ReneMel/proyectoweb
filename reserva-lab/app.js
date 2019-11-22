@@ -13,6 +13,7 @@ var adminSeeUser = require('./routes/adminSeeUser');
 var usersRouter = require('./routes/users');
 var informe = require('./routes/informe');
 var signUp = require('./routes/signUp');
+var forbidden = require('./routes/forbidden');
 
 // initialization
 var app = express();
@@ -56,6 +57,7 @@ app.use('/users', adminSeeUser);
 //app.use('/admin/users', adminSeeUser);
 //app.use('/users', usersRouter);
 app.use('/informe', informe);
+app.use('/forbidden', forbidden);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -12,9 +12,14 @@ let opt2='c'
 
 /* GET home page. */
 router.get('/calendar', function(req, res, next) {
+  if(req.session.passport == undefined) {
+    res.redirect('/login');
+  }
+  else {
+    res.render('index')
+  } 
+});
 
-  res.render('index')
-})
 router.get(`/Evento`,GetLogIn.getEventoById)
 
 router.post('/calendar',function(req,res,next){

@@ -12,7 +12,7 @@ passport.use('local.signup', new localStrategy({
         name,lastname,
         email,type
     } = req.body;
-
+    
     const fullName = `${name} ${lastname}`;
     const truePass = await hp.helpers.encryptPassword(password);
     const newUser = {

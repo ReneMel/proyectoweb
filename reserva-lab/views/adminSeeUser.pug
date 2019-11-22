@@ -16,9 +16,11 @@ html(lang="en")
                     li(class="nav-item active"): a(class="nav-link" href="#")='Reservas'
                     li(class="nav-item active"): a(class="nav-link" href="#")='Reportes'
                     li(class="nav-item active"): a(class="nav-link" href="users/fillAdvanced" data-toggle='modal' data-target='#advancedModal' id='advancedBtn')='Búsqueda Avanzada'
+                    li(class="nav-item active"): a(class="nav-link" href="users/logout")
+                        ion-icon(name='power')
                 form(method='get' action='users/search' class="form-inline my-2 my-lg-0")
                     div(class="input-group mb-3")
-                        input(input type="text" class="form-control" placeholder="Search" id='searchIn')
+                        input(input type="text" class="form-control" placeholder="Carnet" id='searchIn')
                         div(class="input-group-append")
                             button(class="btn btn-outline-success my-2 my-sm-0" type='submit' id='searchBtn')='Buscar'
                             button(type="button" class="btn btn-outline-danger my-2 my-sm-0" id='cancelBtn')='Cancelar'
@@ -101,4 +103,5 @@ html(lang="en")
     script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous")
     script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous")
+    script(src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js")
     script(src="/javascripts/loadData.js")

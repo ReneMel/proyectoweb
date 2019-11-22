@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const router = express.Router();
+const {isLoggedIn} = require('../models/auth')
 
 var GetLogIn = require('../controllers/getLogIn')
 //const eventos= GetLogIn.getEvents()
@@ -11,13 +12,14 @@ let opt2='c'
 
 
 /* GET home page. */
-router.get('/calendar', function(req, res, next) {
-  if(req.session.passport == undefined) {
-    res.redirect('/login');
-  }
-  else {
-    res.render('index')
-  } 
+router.get('/calendar', isLoggedIn, function(req, res, next) {
+  // if(req.session.passport == undefined) {
+  //   res.redirect('/login');
+  // }
+  // else {
+  //   res.render('index')
+  // } 
+  res.render('index')
 });
 
 router.get(`/Evento`,GetLogIn.getEventoById)

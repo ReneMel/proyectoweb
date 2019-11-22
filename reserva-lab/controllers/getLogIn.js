@@ -73,15 +73,17 @@ const getAllUser = async (req,res)=>{
         'imparte','materia','codigo_materia','soporte','carnet_soporte'])*/
 }
 const renderUserView = async (req,res)=>{
-    if(req.session.passport == undefined) {
-        res.redirect('/login');
-    }
-    if(req.session.passport.user.rol) {
-        res.render('adminSeeUser')
-    }
-    else {
-        res.redirect('/forbidden');
-    }
+    //console.log(req.session.passport);
+    
+    // if(req.session.passport == undefined || req.session.passport.user == undefined) {
+    //     res.redirect('/login');
+    // }
+    // else if(req.session.passport.user.rol) {
+    //     res.render('adminSeeUser')
+    // }
+    // else {
+    //     res.redirect('/forbidden');
+    // }
 }
 const getUserById = async (req,res)=>{
     const carnet = req.query.carnet;

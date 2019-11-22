@@ -17,12 +17,9 @@
     "@fullcalendar/timegrid": "^4.3.0",
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.7.1",
-<<<<<<< HEAD
     "bootstrap": "^4.3.1",
     "bootstrap-modal-js": "^1.0.1",
-=======
     "connect-flash": "^0.1.1",
->>>>>>> e3da987e1c2c2970a4cc399ce471b0c3986a1771
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
@@ -36,6 +33,7 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "pg-promise": "^10.2.1",
+    "popper.js": "^1.16.0",
     "pug": "^2.0.4",
     "webpack": "^4.41.2"
   },

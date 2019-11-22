@@ -315,7 +315,12 @@ const getEventoById = async (req, res)=>{
     })
     }
     else {
-        const event = await db.connection.any('	select concat($1,s.codigo_laboratorio,$6,m.nombre)as title, concat(s.fecha_inicio,$2,s.hora_inicio) as start, concat(s.fecha_fin,$3,s.hora_fin) as end from solicitud as s, materia as m where estado = $4 and codigo_laboratorio= $5 and m.codigo=s.codigo_materia;', ['Labo-0','T','T','confirmado', opt,': '])
+        const event = await db.connection.any(`select concat($1,s.codigo_laboratorio,$6,m.nombre)as title,
+                                             concat(s.fecha_inicio,$2,s.hora_inicio) as start, 
+                                             concat(s.fecha_fin,$3,s.hora_fin) as end from solicitud as s,
+                                             materia as m where estado = $4 and codigo_laboratorio= $5 
+                                             and m.codigo=s.codigo_materia;`, 
+                                             ['Labo-0','T','T','confirmado', opt,': '])
         .then(data => {
             //console.log('DATA:', data);
             return res.status(200).json(data); // print and send data;
@@ -328,6 +333,50 @@ const getEventoById = async (req, res)=>{
     })
     }
 }
+
+const getEventbyUser= async(req,res)=>{
+    const carnet = '00082318'  //req.session.passport.carnet;
+    const event = await db.connection.any(`
+    select concat($1,s.codigo_laboratorio,$2,m.nombre)as title, 
+                     concat(s.fecha_inicio,$3,s.hora_inicio) as start, concat(s.fecha_fin,$3,s.hora_fin) as end  
+                     from solicitud as s, materia as m where s.responsable_carnet= $4 and m.codigo=s.codigo_materia and s.estado=$5;`,
+                 ['Labo-0',': ','T', carnet,'pendiente'])
+    .then(data => {
+        //console.log('DATA:', data);
+        return res.status(200).json(data); // print and send data;
+    })
+    .catch(err=>{
+    return res.status(400)
+    .json({
+        message: 'Something went wrong'
+    });
+})
+}
+
+const getMaterias = async(req,res)=>{
+    const carnet = '00082320'  //req.session.passport.carnet;
+    const typeuser = 'estudiante' //req.session.passport.user.tipo
+    if(typeuser=='estudiante'){
+        const event = await db.connection.any(`select m.nombre from materia as m left join materiaxcarrera as mc on mc.codigo_materia=m.codigo 
+        left join carrera as c on c.codigo=mc.codigo_carrera left join estudiante as e 
+        on e.carrera_codigo=c.codigo where e.carnet_estudiante=$1`, [carnet])
+        .then(data => {
+        //console.log('DATA:', data);
+        return res.status(200).json(data); // print and send data;
+        })
+        .catch(err=>{
+        return res.status(400)
+        .json({
+        message: 'Something went wrong'
+        });
+        })
+    }else {
+        console.log('data');
+        
+        
+    }
+}
+
 module.exports = {
     getUser,
     getAllUser,
@@ -338,5 +387,7 @@ module.exports = {
     getAdvancedUser,
     turnUser, 
     getEventoById,
-    getSoporteEventoById
+    getSoporteEventoById,
+    getEventbyUser,
+    getMaterias
 }

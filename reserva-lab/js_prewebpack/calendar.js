@@ -3,6 +3,11 @@ import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
+var $ = require('../node_modules/jquery');
+var modal = require('../node_modules/bootstrap-modal-js')
+//import bootstrap from ('../node_modules/bootstrap');
+//import modal from('../node_modules/bootstrap-modal-js');
+//import moment from '../node_modules/moment'
 
 
 let btntrigger= document.getElementById('buttonTrigger');
@@ -31,12 +36,12 @@ document.addEventListener('DOMContentLoaded', function() {
     plugins: [ interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin ],
     header: {
       left: 'prev,next today',
-      center: 'title addEventButton' ,
+      center: 'title' ,
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     },
     defaultDate: '2019-11-12',
     navLinks: true, // can click day/week names to navigate views
-    editable: true,
+    editable: false,
     eventLimit: true, // allow "more" link when too many events
     eventSources: [
 
@@ -50,47 +55,25 @@ document.addEventListener('DOMContentLoaded', function() {
         url: `http://localhost:3000/sp?Labo=${opt}`,
         color:'blue',  
         textColor:'white'
+      },
+      //logs de usuario
+      {
+        url: `http://localhost:3000/eByu`,
+        color: 'Gray',
+        textColor: 'Black',
+        description: 'Estado Pendiente'
       }
-  
       // any other sources...
   
     ],
-    customButtons: {
-      addEventButton: {
-        text: 'Add new event',
-        click: function () {
-          var dateStr = prompt('Enter date in YYYY-MM-DD format');
-          var date = moment(dateStr);
-  
-          if (date.isValid()) {
-            $('#calendar').fullCalendar('renderEvent', {
-              title: 'Dynamic event',
-              start: date,
-              allDay: true
-            });
-          } else {
-            alert('Invalid Date');
-          }
-  
-        }
-      }
-    },
-    dayClick: function (date, jsEvent, view) {
-      var date = moment(date);
-  
-      if (date.isValid()) {
-        $('#calendar').fullCalendar('renderEvent', {
-          title: 'Dynamic event from date click',
-          start: date,
-          allDay: true
-        });
-      } else {
-        alert('Invalid');
-      }
-    },
-  });
-  
+    
+  }); 
   //agregando comentarios para poder commitear 
   
   calendar.render();
 });
+
+
+
+
+

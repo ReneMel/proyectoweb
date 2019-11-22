@@ -13,6 +13,7 @@ router.post('/signin', (req,res)=>{
         failureRedirect: '/',
         failureFlash: true
     })(req,res);
+    //res.send('done');
 });
 
 module.exports = router;

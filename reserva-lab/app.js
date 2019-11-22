@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const passport = require('passport');
 //const flash =  require('connect-flash');
-//const session = require('express-session');
+const session = require('express-session');
 
 var indexRouter = require('./routes/index');
 var logIn = require('./routes/login');
@@ -27,8 +27,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  secret: 'NoTime_NoRoom2',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {}
+}));
+
 app.use(passport.initialize());
 app.use(passport.session());
+
 //app.use(flash());
 //app.use(session({cookie: { maxAge: 60000 }}));
 

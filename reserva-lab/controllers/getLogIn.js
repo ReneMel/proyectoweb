@@ -31,6 +31,7 @@ const getUser = (req,res)=>{
 }
 
 const getAllUser = async (req,res)=>{
+    console.log(req.session.passport);
     const user = await db.connection.any(`SELECT a.$1~, a.$2~, a.$3~, a.$4~, a.$5~, a.$6~, c.$2~ carrera_materia
     FROM $7~ a INNER JOIN $8~ b
     ON a.$1~ = b.$9~ INNER JOIN $10~ c
@@ -75,11 +76,12 @@ const getAllUser = async (req,res)=>{
         'imparte','materia','codigo_materia','soporte','carnet_soporte'])*/
 }
 const renderUserView = async (req,res)=>{
+    console.log(req.session.passport);
     res.render('adminSeeUser')
 }
 const getUserById = async (req,res)=>{
     const carnet = req.query.carnet;
-    
+    console.log(req.session.passport); 
     const user = await db.connection.any(`SELECT a.$1~, a.$2~, a.$3~, a.$4~, a.$5~, a.$6~, c.$2~ carrera_materia
     FROM $7~ a INNER JOIN $8~ b
     ON a.$1~ = b.$9~ INNER JOIN $10~ c
@@ -109,7 +111,7 @@ const getUserById = async (req,res)=>{
 const updateUser = async (req,res)=>{
     const user = req.body;
     const carnet = req.query.carnet;
-
+    
     const update = await db.connection.any(`UPDATE usuario SET nombre=$1, 
     contra=$2, correo=$3, tipo=$4 
     WHERE carnet=$5;`,[user.name,user.pass,user.email,user.type,carnet])
@@ -128,6 +130,7 @@ const updateUser = async (req,res)=>{
 const turnUser = async (req,res)=>{
     const carnet = req.query.carnet;
     const state = JSON.parse(req.query.state);
+    console.log(req.session.passport); 
     
     const update = await db.connection.any(`UPDATE usuario SET estado = $1
     WHERE carnet = $2`, [state,carnet])
@@ -173,7 +176,8 @@ const getAdvancedUser = async (req,res)=>{
     let state = req.query.state;
     let subject = req.query.subject;
     let career = req.query.career;
-
+    console.log(req.session.passport); 
+    
     if (state == 'todos') {
         state = 'a.estado'
     }
@@ -267,7 +271,6 @@ const getAdvancedUser = async (req,res)=>{
         })  
     }
 }
-
 
 const getSoporteEventoById= async(req,res)=>{
     const opt = req.query.Labo;

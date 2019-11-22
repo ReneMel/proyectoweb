@@ -8,9 +8,11 @@ passport.use('local.signup', new localStrategy({
     passwordField: 'pass',
     passReqToCallback: true
 }, async (req,username,password,done)=>{
+    console.log(req.body);
+    
     const {
         name,lastname,
-        email,type
+        email,career
     } = req.body;
     
     const fullName = `${name} ${lastname}`;
@@ -21,13 +23,29 @@ passport.use('local.signup', new localStrategy({
         role: false,state: true,
         type: 'estudiante'
     };
-    
+
     const result = await db.connection.any(`INSERT INTO usuario
     VALUES($1,$2,$3,$4,$5,$6,$7);`, [newUser.carnet,newUser.name,newUser.email,
     newUser.pass,newUser.role,newUser.state,newUser.type])
+    .then(async ()=>{
+        await db.connection.any(`SELECT to_json(codigo) codigo
+        FROM carrera WHERE nombre =  $1`, [career])
+        .then(async data=>{
+            const code = data[0].codigo;
+            await db.connection.any(`INSERT INTO estudiante 
+            VALUES($1,$2)`, [newUser.carnet,code])
+            .catch(err=>{
+            console.log(err);
+            })
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+    })
     .catch(err=>{
         console.log(err);    
     })
+        
     return done(null, newUser);
 }));
 

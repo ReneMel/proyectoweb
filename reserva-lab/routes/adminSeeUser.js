@@ -5,7 +5,13 @@ const {isLoggedIn} = require('../models/auth');
 
 /*GET*/
 router.get('/', isLoggedIn, (req,res)=>{
-    res.render('adminSeeUser');
+    if (req.session.passport.user.rol) {
+        res.render('adminSeeUser');    
+    }
+    else {
+        res.redirect('/forbidden')
+    }
+    
 }); //getLogIn.renderUserView
 router.get('/search', getLogIn.getUserById)
 router.get('/show', getLogIn.getUserById);

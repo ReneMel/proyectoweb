@@ -19,6 +19,8 @@ router.get('/calendar', isLoggedIn, function(req, res, next) {
   // else {
   //   res.render('index')
   // } 
+  console.log(req.session);
+  
   res.render('index')
 });
 

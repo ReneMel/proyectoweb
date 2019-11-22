@@ -28,4 +28,5 @@ router.post('/calendar',function(req,res,next){
 
 router.get('/sp', GetLogIn.getSoporteEventoById)
 
+router.get('/add', GetLogIn.AddEvents)
 module.exports = router;

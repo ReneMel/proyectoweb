@@ -377,6 +377,10 @@ const getMaterias = async(req,res)=>{
     }
 }
 
+const AddEvents= async(req, res)=>{
+    res.redirect('/calendar')
+}
+
 module.exports = {
     getUser,
     getAllUser,
@@ -389,5 +393,6 @@ module.exports = {
     getEventoById,
     getSoporteEventoById,
     getEventbyUser,
-    getMaterias
+    getMaterias,
+    AddEvents
 }

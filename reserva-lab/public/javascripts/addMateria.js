@@ -1,5 +1,6 @@
 let dataMaterias = document.getElementById('dataMaterias')
 let dropdown= document.getElementById('materias')
+let Solitbtn= document.getElementById('Solitbtn')
 
 
 document.addEventListener('DOMContentLoaded', async ()=>{
@@ -20,35 +21,11 @@ document.addEventListener('DOMContentLoaded', async ()=>{
       	  dropdown.add(option);
         }
     })
-    /*.then(data => {
-        //let dropdown = $('#materias');
-
-        //dropdown.empty();
-        
-        //dropdown.append('<option selected="true" disabled>Elija materia</option>');
-        //dropdown.prop('selectedIndex', 0);
-        
-        /*
-        data.map((object,index)=>{
-            
-            $.each(object, function (key, entry) {
-                
-                
-                dropdown.append($('<option>').attr('value', entry.nombre).text(entry.nombre));
-                console.log(entry.nombre);
-                
-               //dropdown.append($("<option />").val(entry.nombre).text(entry.nombre));
-                
-               dropdown.append($('<option></option>').attr('value', entry.abbreviation).text(entry.name));
-
-
-              })
-
-        // Populate dropdown with list of provinces
-        
-        })
-
-
-        
-    })*/
+    
 });
+
+
+Solitbtn.addEventListener('click', ()=>{
+    
+
+})

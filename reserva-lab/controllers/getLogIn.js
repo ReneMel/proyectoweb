@@ -376,9 +376,30 @@ const getMaterias = async(req,res)=>{
         
     }
 }
+/*
+    -revise data del form
+    -vea eventos y compare duplicados con estado C
+        si: insert solicitud
+        no: aler();
 
-const AddEvents= async(req, res)=>{
-    res.redirect('/calendar')
+
+
+*/ 
+const addSolicitud= async(req, res)=>{
+    const inic= req.body.DateInic
+    const fin= req.body.DateFin
+    
+    console.log(fin);
+    
+    const eventos= await db.connection.any('select * from solicitud as s where s.estado=$1',['confirmado'])
+    .then(data=>{
+        for (let i = 0; i < data.length; i++) {
+            const element = data[i];
+            console.log(element.fecha_fin);
+            
+            
+        }
+    })
 }
 
 module.exports = {
@@ -394,5 +415,5 @@ module.exports = {
     getSoporteEventoById,
     getEventbyUser,
     getMaterias,
-    AddEvents
+    addSolicitud
 }

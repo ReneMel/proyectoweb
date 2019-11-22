@@ -25,11 +25,11 @@ html(lang="en")
                 div(class="form-group")
                     input(type="password" class="form-control" placeholder="Contraseña" required="required" name='pass')
                 div(class="form-group")
-                    label(for="type")='Tipo'
-                    select(class="form-control" id="type" name='type')
+                    //-label(for="type")='Tipo'
+                    //-select(class="form-control" id="type" name='type')
                         option='estudiante'
                         option='docente'
                         option='soporte'
                 div(class="form-group")
                     button(type="submit" class="btn btn-primary btn-block")='Crear sesión'
-            p(class="text-center"): a(href="#")='Ingresar sesión'
+            p(class="text-center"): a(href="/login")='Ingresar sesión'

@@ -25,7 +25,28 @@ document.addEventListener('DOMContentLoaded', async ()=>{
 });
 
 
-Solitbtn.addEventListener('click', ()=>{
-    
+Solitbtn.addEventListener('click', async event=>{
+    let dateInic= document.getElementById('DateInic')
+    let dateFin = document.getElementById('DateFin')
+    let Labo= document.getElementById('LaboSolicitud')
+    console.log(dateInic.value)
+    Conso
+
+    event.preventDefault();
+    await fetch('http://localhost:3000/Evento?Labo=0')
+    .then(res=>{
+        return res.json();
+    })
+    .then(data=>{
+        console.log(data);
+
+        for (let i = 0; i < data.length; i++) {
+            
+            
+        }
+
+        
+        
+    })
 
 })

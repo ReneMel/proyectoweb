@@ -394,7 +394,7 @@ const addSolicitud= async(req, res)=>{
     const mat= req.body.materias
     const equipo = req.body.equipo
     const estado = 'pendiente'
-    const carnet = '00082320'
+    const carnet = '00082318'
     
     
     console.log(inic);
@@ -409,7 +409,7 @@ const addSolicitud= async(req, res)=>{
     
     const add= await db.connection.any(`
     insert into solicitud(id,equipo,fecha_inicio,fecha_fin,hora_inicio,hora_fin,fecha_solicitud,estado,responsable_carnet,codigo_laboratorio, codigo_materia)
-    values('INSERTPRUEBA',$1,$2,$3,$4,$5,'2019-11-24',$6,$7,$8,$9)`,[equipo,inic,fin,hinic,hfin,estado,carnet,labo,mat])
+    values('INSERTPRUE23',$1,$2,$3,$4,$5,'2019-11-24',$6,$7,$8,$9)`,[equipo,inic,fin,hinic,hfin,estado,carnet,labo,mat])
     .then(data=>{
         res.redirect('/calendar')
     })

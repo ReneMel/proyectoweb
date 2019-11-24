@@ -362,7 +362,7 @@ const getMaterias = async(req,res)=>{
     const carnet = '00082320'  //req.session.passport.carnet;
     const typeuser = 'estudiante' //req.session.passport.user.tipo
     if(typeuser=='estudiante'){
-        const event = await db.connection.any(`select m.nombre from materia as m left join materiaxcarrera as mc on mc.codigo_materia=m.codigo 
+        const event = await db.connection.any(`select m.nombre, m.codigo from materia as m left join materiaxcarrera as mc on mc.codigo_materia=m.codigo 
         left join carrera as c on c.codigo=mc.codigo_carrera left join estudiante as e 
         on e.carrera_codigo=c.codigo where e.carnet_estudiante=$1`, [carnet])
         .then(data => {
@@ -391,19 +391,36 @@ const getMaterias = async(req,res)=>{
 
 */ 
 const addSolicitud= async(req, res)=>{
-    const inic= req.body.DateInic
-    const fin= req.body.DateFin
+    const inic= req.body.dateinic
+    const fin= req.body.dateFin
+    const hinic= req.body.hinic
+    const hfin = req.body.hfin
+    const labo= req.body.labosolicitud
+    const mat= req.body.materias
+    const equipo = req.body.equipo
+    const estado = 'pendiente'
+    const carnet = '00082318'
     
+    
+    console.log(inic);
     console.log(fin);
+    console.log(hinic);
+    console.log(hfin);
+    console.log(labo);
+    console.log(mat)
+    console.log(equipo);
     
-    const eventos= await db.connection.any('select * from solicitud as s where s.estado=$1',['confirmado'])
+    
+    
+    const add= await db.connection.any(`
+    insert into solicitud(id,equipo,fecha_inicio,fecha_fin,hora_inicio,hora_fin,fecha_solicitud,estado,responsable_carnet,codigo_laboratorio, codigo_materia)
+    values('INSERTPRUE23',$1,$2,$3,$4,$5,'2019-11-24',$6,$7,$8,$9)`,[equipo,inic,fin,hinic,hfin,estado,carnet,labo,mat])
     .then(data=>{
-        for (let i = 0; i < data.length; i++) {
-            const element = data[i];
-            console.log(element.fecha_fin);
-            
-            
-        }
+        res.redirect('/calendar')
+    })
+    .catch(err=>{
+        console.log(err);
+        return res.status(400).json(err)
     })
 }
 

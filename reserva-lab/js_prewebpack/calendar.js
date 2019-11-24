@@ -53,8 +53,8 @@ document.addEventListener('DOMContentLoaded', function() {
       },
       {
         url: `http://localhost:3000/sp?Labo=${opt}`,
-        color:'blue',  
-        textColor:'white'
+        color:'green',  
+        textColor:'black'
       },
       //logs de usuario
       {

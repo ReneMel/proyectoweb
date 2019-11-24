@@ -5,7 +5,7 @@ let Solitbtn= document.getElementById('Solitbtn')
 
 document.addEventListener('DOMContentLoaded', async ()=>{
 
-    await fetch(`http://localhost:3000/matBU`)
+    await fetch(`http://localhost:3000/matBU`,)
     .then(res => {
           return res.json()
           
@@ -17,36 +17,32 @@ document.addEventListener('DOMContentLoaded', async ()=>{
     	for (let i = 0; i < data.length; i++) {
           option = document.createElement('option');
       	  option.text = data[i].nombre;
-      	  option.value = data[i].nombre;
+      	  option.value = data[i].codigo;
       	  dropdown.add(option);
         }
     })
     
 });
 
-
+/*
 Solitbtn.addEventListener('click', async event=>{
     let dateInic= document.getElementById('DateInic')
     let dateFin = document.getElementById('DateFin')
     let Labo= document.getElementById('LaboSolicitud')
-    console.log(dateInic.value)
-    Conso
+    //console.log(dateInic.value)
 
     event.preventDefault();
-    await fetch('http://localhost:3000/Evento?Labo=0')
-    .then(res=>{
-        return res.json();
+
+    fetch(`http://localhost:3000/calendar/evento`, {
+        method: 'POST'
+    })
+    .then(res => {
+        console.log(res);
+        return res.json()
     })
     .then(data=>{
-        console.log(data);
-
-        for (let i = 0; i < data.length; i++) {
-            
-            
-        }
-
-        
-        
+        console.log("f")
     })
+    button( class="btn btn-primary" id='Solitbtn')='Solicitar'
 
-})
+})*/

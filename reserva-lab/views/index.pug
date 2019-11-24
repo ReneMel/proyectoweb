@@ -31,7 +31,7 @@ html(lang="en")
       label(for="Labo") Parámetros de busqueda: 
         small(class="text-muted") (por defecto muestra todos los eventos) 
       br
-      form(method='post')
+      form(method='post' action)
         select(class='form_group text-center' name='Labo' id='LaboId')
               option(value='0') Todos
               option(value='1') DEI Laboratorio-01
@@ -51,39 +51,40 @@ html(lang="en")
                         h5(class="modal-title" id="Solicitud") Solicitud
                         button(type="button" class="close" data-dismiss="modal" aria-label="Close")
                             span(aria-hidden="true") &times;
-                    div(class="modal-body")
-                        div(class="form-group")
-                            label(for="DateInic")='fecha Inicio'
-                            input(type="date" class="form-control" id="DateInic" name='dateinic')
-                        div(class="form-group")
-                            label(for="DateFin")='Fecha Final'
-                            input(type="date" class="form-control" id="DateFin"  required="required" name='dateFin')
-                        div(class="form-group")
-                            label(for="hinic")='Hora Inicio'
-                            input(type="time" class="form-control" id="Hinic"  name='hinic')
-                        div(class="form-group")
-                            label(for="hfin")='Hora Inicio'
-                            input(type="time" class="form-control" id="hfin"  name='hfin')                            
-                        div(class="form-group")
-                            label(for="Labo")='Laboratorio'
-                              select(class='form_group text-center' name='labosolicitud' id='LaboSolicitud')
-                                option(value='1') DEI Laboratorio-01
-                                option(value='2') DEI Laboratorio-02
-                                option(value='3') DEI Laboratorio-03
-                                option(value='4') DEI Laboratorio-04
-                                option(value='5') DEI Laboratorio-05
-                                option(value='6') DEI Laboratorio-06
-                                option(value='7') DEI Laboratorio-07 
-                        div(class="form-group")
-                          label(for="necesidades")="Equipo: " 
-                          input(type="text", name="equipo" class='form_group text-center')
-                        div(class='form-group' id='dataMaterias')
-                          label(for='materias') Materia: 
-                          select(id='materias' class ='form-group' name="materias")                     
-                    div(class="modal-footer")
-                        button(class="btn btn-secondary" data-dismiss="modal" id='closeBtn')='Cerrar'
-                        a(href='/' class="btn btn-primary" id='Solitbtn')='Solicitar'                     
-              
+                    form(action="/event", method="post")
+                      div(class="modal-body")
+                          div(class="form-group")
+                              label(for="DateInic")='fecha Inicio'
+                              input(type="date" class="form-control" id="DateInic" name='dateinic')
+                          div(class="form-group")
+                              label(for="DateFin")='Fecha Final'
+                              input(type="date" class="form-control" id="DateFin"  required="required" name='dateFin')
+                          div(class="form-group")
+                              label(for="hinic")='Hora Inicio'
+                              input(type="time" class="form-control" id="Hinic"  name='hinic')
+                          div(class="form-group")
+                              label(for="hfin")='Hora Inicio'
+                              input(type="time" class="form-control" id="hfin"  name='hfin')                            
+                          div(class="form-group")
+                              label(for="Labo")='Laboratorio'
+                                select(class='form_group text-center' name='labosolicitud' id='LaboSolicitud')
+                                  option(value='1') DEI Laboratorio-01
+                                  option(value='2') DEI Laboratorio-02
+                                  option(value='3') DEI Laboratorio-03
+                                  option(value='4') DEI Laboratorio-04
+                                  option(value='5') DEI Laboratorio-05
+                                  option(value='6') DEI Laboratorio-06
+                                  option(value='7') DEI Laboratorio-07 
+                          div(class="form-group")
+                            label(for="necesidades")="Equipo: " 
+                            input(type="text", name="equipo" class='form_group text-center' id="equipo")
+                          div(class='form-group' id='dataMaterias')
+                            label(for='materias') Materia: 
+                            select(id='materias' class ='form-group' name="materias")                     
+                      div(class="modal-footer")
+                          button(class="btn btn-secondary" data-dismiss="modal" id='closeBtn')='Cerrar'
+                          button( class="btn btn-primary" id='Solitbtn')='Solicitar'                     
+                      button.btn.btn-primary(type='submit') Solicitar2
 
     div(id="calendar" class="calendar")
   script(src="javascripts/addMateria.js")    

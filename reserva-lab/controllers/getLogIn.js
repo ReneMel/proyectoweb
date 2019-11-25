@@ -359,7 +359,9 @@ const getEventbyUser= async(req,res)=>{
 }
 
 const getMaterias = async(req,res)=>{
-    const carnet = '00082320'  //req.session.passport.carnet;
+    const carnet =  req.user.carnet;
+    console.log(req.user.carnet);
+    
     const typeuser = 'estudiante' //req.session.passport.user.tipo
     if(typeuser=='estudiante'){
         const event = await db.connection.any(`select m.nombre, m.codigo from materia as m left join materiaxcarrera as mc on mc.codigo_materia=m.codigo 

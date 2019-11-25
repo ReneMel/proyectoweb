@@ -8,9 +8,11 @@ passport.use('local.signup', new localStrategy({
     passwordField: 'pass',
     passReqToCallback: true
 }, async (req,username,password,done)=>{
+    console.log(req.body);
+    
     const {
         name,lastname,
-        email,type
+        email,career
     } = req.body;
     
     const fullName = `${name} ${lastname}`;
@@ -22,13 +24,38 @@ passport.use('local.signup', new localStrategy({
         type: 'estudiante'
     };
     
-    const result = await db.connection.any(`INSERT INTO usuario
-    VALUES($1,$2,$3,$4,$5,$6,$7);`, [newUser.carnet,newUser.name,newUser.email,
-    newUser.pass,newUser.role,newUser.state,newUser.type])
-    .catch(err=>{
-        console.log(err);    
+    await db.connection.any(`SELECT to_json(codigo) codigo
+    FROM carrera WHERE nombre =  $1`, [career])
+    .then(async data=>{
+        const code = data[0].codigo;
+        db.connection.tx(task=>{
+            return task.batch([
+                task.none(`SET CONSTRAINTS fk_estudiante_usuario DEFERRED;`),
+                task.none(`SET CONSTRAINTS fk_estudiante_carrera DEFERRED;`),
+                
+                task.none(`INSERT INTO estudiante 
+                VALUES($1,$2)`, [newUser.carnet,code]),
+
+                task.none(`INSERT INTO usuario
+                VALUES($1,$2,$3,$4,$5,$6,$7);`, [newUser.carnet,newUser.name,newUser.email,
+                newUser.pass,newUser.role,newUser.state,newUser.type])
+                
+            ]);
+        })
+        .then(data=>{
+            console.log('Exito');
+            return done(null, newUser);
+            
+        })
+        .catch(err=>{
+            console.log('ERROR: ' + err);
+            
+        })
     })
-    return done(null, newUser);
+    .catch(err=>{
+        console.log(err);
+    })
+    
 }));
 
 passport.use('local.signin', new localStrategy({
@@ -59,7 +86,11 @@ passport.serializeUser((user,done)=>{
 
 passport.deserializeUser(async (user,done)=>{
     const getUser = await db.connection.any(`SELECT * FROM usuario
-    WHERE carnet = $1;`, [user.carnet]);
+    WHERE carnet = $1;`, [user.carnet])
+    .catch(err=>{
+        console.log(err);
+        
+    });
     userSession = getUser[0];
     delete userSession.contra;
 

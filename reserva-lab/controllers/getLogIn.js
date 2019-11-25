@@ -307,7 +307,7 @@ const getSoporteEventoById= async(req,res)=>{
 const getEventoById = async (req, res)=>{
     const opt = req.query.Labo;
     if (opt==0){
-        const event = await db.connection.any('select concat($1,s.codigo_laboratorio,$5,m.nombre)as title, concat(s.fecha_inicio,$2,s.hora_inicio) as start, concat(s.fecha_fin,$3,s.hora_fin) as end from solicitud as s, materia as m where estado = $4  and m.codigo=s.codigo_materia;', ['Labo-0','T','T','confirmado',': '])
+        const event = await db.connection.any('select concat($1,s.codigo_laboratorio,$5,m.nombre)as title, concat(s.fecha_inicio,$2,s.hora_inicio) as start, concat(s.fecha_fin,$3,s.hora_fin) as end from solicitud as s, materia as m where estado = $4  and m.codigo=s.codigo_materia;', ['Labo-0','T','T','confirmada',': '])
         .then(data => {
             //console.log('DATA:', data);
             return res.status(200).json(data); // print and send data;

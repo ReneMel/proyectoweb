@@ -5,7 +5,7 @@ const options = {
 };
 const pgp = require('pg-promise')(options);
 //postgres://username:password@host:port/databasename
-const connectionString = 'postgres://renemel:ethernanobull@localhost:5432/reserva_lab';
+const connectionString = 'postgres://user:pswd@localhost:5432/reserva_lab';
 const connection = pgp(connectionString);
 
 module.exports = {connection}

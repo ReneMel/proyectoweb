@@ -340,7 +340,7 @@ const getEventoById = async (req, res)=>{
 }
 
 const getEventbyUser= async(req,res)=>{
-    const carnet = '00082318'  //req.session.passport.carnet;
+    const carnet = req.user.carnet  //req.session.passport.carnet;
     const event = await db.connection.any(`
     select concat($1,s.codigo_laboratorio,$2,m.nombre)as title, 
                      concat(s.fecha_inicio,$3,s.hora_inicio) as start, concat(s.fecha_fin,$3,s.hora_fin) as end  
@@ -401,7 +401,7 @@ const addSolicitud= async(req, res)=>{
     const mat= req.body.materias
     const equipo = req.body.equipo
     const estado = 'pendiente'
-    const carnet = '00082318'
+    const carnet = req.user.carnet
     
     
     console.log(inic);
@@ -415,8 +415,8 @@ const addSolicitud= async(req, res)=>{
     
     
     const add= await db.connection.any(`
-    insert into solicitud(id,equipo,fecha_inicio,fecha_fin,hora_inicio,hora_fin,fecha_solicitud,estado,responsable_carnet,codigo_laboratorio, codigo_materia)
-    values('INSERTPRUE23',$1,$2,$3,$4,$5,'2019-11-24',$6,$7,$8,$9)`,[equipo,inic,fin,hinic,hfin,estado,carnet,labo,mat])
+    insert into solicitud(equipo,fecha_inicio,fecha_fin,hora_inicio,hora_fin,fecha_solicitud,estado,responsable_carnet,codigo_laboratorio, codigo_materia)
+    values($1,$2,$3,$4,$5,'2019-11-24',$6,$7,$8,$9)`,[equipo,inic,fin,hinic,hfin,estado,carnet,labo,mat])
     .then(data=>{
         res.redirect('/calendar')
     })

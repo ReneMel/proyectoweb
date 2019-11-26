@@ -3,8 +3,10 @@ import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
-var $ = require('../node_modules/jquery');
-var modal = require('../node_modules/bootstrap-modal-js')
+//import $  from '../node_modules/jquery';
+//import bootstrap from '../node_modules/bootstrap/js';
+//let modalconfirm = document.getElementById('ConfirmModa')
+
 //import bootstrap from ('../node_modules/bootstrap');
 //import modal from('../node_modules/bootstrap-modal-js');
 //import moment from '../node_modules/moment'
@@ -16,6 +18,7 @@ let btntrigger= document.getElementById('buttonTrigger');
 
 document.addEventListener('DOMContentLoaded', function() {
   var calendarEl = document.getElementById('calendar');
+  let modalconfirm = document.getElementById('ConfirmModal')
   //alert("The URL of this page is: " + window.location.href);
   var loc=window.location.href;
   var opt=0;
@@ -32,7 +35,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
-  var calendar = new Calendar(calendarEl, {
+  var calendar = new Calendar(calendarEl, 
+  {
     plugins: [ interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin ],
     header: {
       left: 'prev,next today',
@@ -66,6 +70,10 @@ document.addEventListener('DOMContentLoaded', function() {
       // any other sources...
   
     ],
+    eventClick: function(info) {
+      $('#ConfirmModal').modal('show');
+      info.el.style.borderColor = 'red';
+    }
     
   }); 
   //agregando comentarios para poder commitear 

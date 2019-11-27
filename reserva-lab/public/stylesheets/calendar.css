@@ -17,3 +17,6 @@ body {
   #text-muted{
     font-size: 10px;
   }
+  .modal{
+    display: none;
+  }

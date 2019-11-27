@@ -3,6 +3,13 @@ import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
+//import $  from '../node_modules/jquery';
+//import bootstrap from '../node_modules/bootstrap/js';
+//let modalconfirm = document.getElementById('ConfirmModa')
+
+//import bootstrap from ('../node_modules/bootstrap');
+//import modal from('../node_modules/bootstrap-modal-js');
+//import moment from '../node_modules/moment'
 
 
 let btntrigger= document.getElementById('buttonTrigger');
@@ -11,6 +18,7 @@ let btntrigger= document.getElementById('buttonTrigger');
 
 document.addEventListener('DOMContentLoaded', function() {
   var calendarEl = document.getElementById('calendar');
+  let modalconfirm = document.getElementById('ConfirmModal')
   //alert("The URL of this page is: " + window.location.href);
   var loc=window.location.href;
   var opt=0;
@@ -22,23 +30,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     if(loc.charAt(i)=='=' && loc.charAt(i-1)=='e'){
       opt2='confirmado'
-      console.log(opt2);
-      console.log(opt);
+     // console.log(opt2);
+      //console.log(opt);
     }
   }
   
-
-
-  var calendar = new Calendar(calendarEl, {
+  var calendar = new Calendar(calendarEl, 
+  {
     plugins: [ interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin ],
     header: {
       left: 'prev,next today',
-      center: 'title',
+      center: 'title' ,
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     },
     defaultDate: '2019-11-12',
     navLinks: true, // can click day/week names to navigate views
-    editable: true,
+    editable: false,
     eventLimit: true, // allow "more" link when too many events
     eventSources: [
 
@@ -50,15 +57,31 @@ document.addEventListener('DOMContentLoaded', function() {
       },
       {
         url: `http://localhost:3000/sp?Labo=${opt}`,
-        color:'blue',  
-        textColor:'white'
+        color:'green',  
+        textColor:'black'
+      },
+      //logs de usuario
+      {
+        url: `http://localhost:3000/eByu`,
+        color: 'Gray',
+        textColor: 'Black',
+        description: 'Estado Pendiente'
       }
-  
       // any other sources...
   
-    ]
-  });
+    ],
+    eventClick: function(info) {
+      $('#ConfirmModal').modal('show');
+      info.el.style.borderColor = 'red';
+    }
+    
+  }); 
   //agregando comentarios para poder commitear 
   
   calendar.render();
 });
+
+
+
+
+

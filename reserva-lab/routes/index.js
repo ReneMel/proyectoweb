@@ -9,7 +9,8 @@ var GetLogIn = require('../controllers/getLogIn')
 let opt=0
 let opt2='c'
 
-
+router.get('/eByU', GetLogIn.getEventbyUser)
+router.get('/matBU',GetLogIn.getMaterias)
 
 /* GET home page. */
 router.get('/calendar', isLoggedIn, function(req, res, next) {
@@ -36,4 +37,7 @@ router.post('/calendar',function(req,res,next){
 
 router.get('/sp', GetLogIn.getSoporteEventoById)
 
+router.post('/event', GetLogIn.addSolicitud)
+
+//router.get('/add', GetLogIn.addSolicitud)
 module.exports = router;

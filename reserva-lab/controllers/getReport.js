@@ -14,7 +14,9 @@ const getAdvancedReport = async (req,res)=>{
     let nombreMat = req.query.nombreMat;
     let carnetResponsable = req.query.carnetResponsable;
 
-    if(nombreLab){
+    if(fechaSol){
+        console.log(fechaSol);
+        
         console.log('Hola esto no funciona');
     }
     else{
@@ -79,8 +81,8 @@ const getAdvancedReport = async (req,res)=>{
         INNER JOIN $14~ u ON s.$15~ = u.$16~
         WHERE s.$3~ = $17;`
         ,['id','fecha_solicitud','fecha_inicio','hora_inicio','hora_fin','estado','nombre','solicitud','laboratorio','codigo_laboratorio','codigo','materia','codigo_materia','usuario','responsable_carnet','carnet',fechaIni])
-        .then(data=>{        
-            res.status(200).json(data);
+        .then(data=>{
+            res.status(200).json(data);     
         })
         .catch(err=>{
             console.log(err);
@@ -102,7 +104,7 @@ const getAdvancedReport = async (req,res)=>{
             console.log(err);
         })
     }
-    else if ((!fechaIni) && fechaSol && (!horaIni) && (!horaFin) && (!nombreLab) && (!nombreMat) && (!carnetResponsable) && (estadoSol == 'todas')) {
+    else if ((!fechaIni) && (fechaSol) && (!horaIni) && (!horaFin) && (!nombreLab) && (!nombreMat) && (!carnetResponsable) && (estadoSol == 'todas')) {
         await db.connection.any(`SELECT s.$1~ as "No_de_solicitud", s.$2~ as "Fecha_de_solicitud", s.$3~ as "Fecha_de_reserva",
         CONCAT('de ', s.$4~, ' a ', s.$5~) as "Duracion", s.$6~ as "Estado_de_solicitud", l.$7~ as "Laboratorio_solicitado",
         m.$7~ as "Materia", u.$7~ as "Responsable"
@@ -287,6 +289,166 @@ const getAdvancedReport = async (req,res)=>{
         INNER JOIN $14~ u ON s.$15~ = u.$16~
         WHERE s.$15~ = $17 AND s.$6~ = $18;`
         ,['id','fecha_solicitud','fecha_inicio','hora_inicio','hora_fin','estado','nombre','solicitud','laboratorio','codigo_laboratorio','codigo','materia','codigo_materia','usuario','responsable_carnet','carnet',carnetResponsable,estadoSol])
+        .then(data=>{        
+            res.status(200).json(data);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+    }
+    else if (fechaIni && fechaSol && (!horaIni) && (!horaFin) && (!nombreLab) && (!nombreMat) && (!carnetResponsable) && (estadoSol == 'todas')) {
+        await db.connection.any(`SELECT s.$1~ as "No_de_solicitud", s.$2~ as "Fecha_de_solicitud", s.$3~ as "Fecha_de_reserva",
+        CONCAT('de ', s.$4~, ' a ', s.$5~) as "Duracion", s.$6~ as "Estado_de_solicitud", l.$7~ as "Laboratorio_solicitado",
+        m.$7~ as "Materia", u.$7~ as "Responsable"
+        FROM (($8~ s INNER JOIN $9~ l ON s.$10~ = l.$11~)
+        INNER JOIN $12~ m ON s.$13~ = m.$11~)
+        INNER JOIN $14~ u ON s.$15~ = u.$16~
+        WHERE s.$3~ = $17 AND s.$2~ = $18;`
+        ,['id','fecha_solicitud','fecha_inicio','hora_inicio','hora_fin','estado','nombre','solicitud','laboratorio','codigo_laboratorio','codigo','materia','codigo_materia','usuario','responsable_carnet','carnet',fechaIni,fechaSol])
+        .then(data=>{        
+            res.status(200).json(data);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+    }
+    else if (fechaIni && fechaSol && (!horaIni) && (!horaFin) && (!nombreLab) && (!nombreMat) && (!carnetResponsable) && (estadoSol != 'todas')) {
+        await db.connection.any(`SELECT s.$1~ as "No_de_solicitud", s.$2~ as "Fecha_de_solicitud", s.$3~ as "Fecha_de_reserva",
+        CONCAT('de ', s.$4~, ' a ', s.$5~) as "Duracion", s.$6~ as "Estado_de_solicitud", l.$7~ as "Laboratorio_solicitado",
+        m.$7~ as "Materia", u.$7~ as "Responsable"
+        FROM (($8~ s INNER JOIN $9~ l ON s.$10~ = l.$11~)
+        INNER JOIN $12~ m ON s.$13~ = m.$11~)
+        INNER JOIN $14~ u ON s.$15~ = u.$16~
+        WHERE s.$3~ = $17 AND s.$6~ = $18 AND s.$2~ = $19;`
+        ,['id','fecha_solicitud','fecha_inicio','hora_inicio','hora_fin','estado','nombre','solicitud','laboratorio','codigo_laboratorio','codigo','materia','codigo_materia','usuario','responsable_carnet','carnet',fechaIni,estadoSol,fechaSol])
+        .then(data=>{        
+            res.status(200).json(data);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+    }
+    else if (fechaIni && fechaSol && horaIni && (!horaFin) && (!nombreLab) && (!nombreMat) && (!carnetResponsable) && (estadoSol == 'todas')) {
+        await db.connection.any(`SELECT s.$1~ as "No_de_solicitud", s.$2~ as "Fecha_de_solicitud", s.$3~ as "Fecha_de_reserva",
+        CONCAT('de ', s.$4~, ' a ', s.$5~) as "Duracion", s.$6~ as "Estado_de_solicitud", l.$7~ as "Laboratorio_solicitado",
+        m.$7~ as "Materia", u.$7~ as "Responsable"
+        FROM (($8~ s INNER JOIN $9~ l ON s.$10~ = l.$11~)
+        INNER JOIN $12~ m ON s.$13~ = m.$11~)
+        INNER JOIN $14~ u ON s.$15~ = u.$16~
+        WHERE s.$3~ = $17 AND s.$2~ = $18 AND s.$4~ = $19;`
+        ,['id','fecha_solicitud','fecha_inicio','hora_inicio','hora_fin','estado','nombre','solicitud','laboratorio','codigo_laboratorio','codigo','materia','codigo_materia','usuario','responsable_carnet','carnet',fechaIni,fechaSol,horaIni])
+        .then(data=>{        
+            res.status(200).json(data);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+    }
+    else if (fechaIni && fechaSol && horaIni && (!horaFin) && (!nombreLab) && (!nombreMat) && (!carnetResponsable) && (estadoSol != 'todas')) {
+        await db.connection.any(`SELECT s.$1~ as "No_de_solicitud", s.$2~ as "Fecha_de_solicitud", s.$3~ as "Fecha_de_reserva",
+        CONCAT('de ', s.$4~, ' a ', s.$5~) as "Duracion", s.$6~ as "Estado_de_solicitud", l.$7~ as "Laboratorio_solicitado",
+        m.$7~ as "Materia", u.$7~ as "Responsable"
+        FROM (($8~ s INNER JOIN $9~ l ON s.$10~ = l.$11~)
+        INNER JOIN $12~ m ON s.$13~ = m.$11~)
+        INNER JOIN $14~ u ON s.$15~ = u.$16~
+        WHERE s.$3~ = $17 AND s.$6~ = $18 AND s.$2~ = $19 AND s.$4~ = $20;`
+        ,['id','fecha_solicitud','fecha_inicio','hora_inicio','hora_fin','estado','nombre','solicitud','laboratorio','codigo_laboratorio','codigo','materia','codigo_materia','usuario','responsable_carnet','carnet',fechaIni,estadoSol,fechaSol,horaIni])
+        .then(data=>{        
+            res.status(200).json(data);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+    }
+    else if (fechaIni && fechaSol && horaIni && horaFin && (!nombreLab) && (!nombreMat) && (!carnetResponsable) && (estadoSol == 'todas')) {
+        await db.connection.any(`SELECT s.$1~ as "No_de_solicitud", s.$2~ as "Fecha_de_solicitud", s.$3~ as "Fecha_de_reserva",
+        CONCAT('de ', s.$4~, ' a ', s.$5~) as "Duracion", s.$6~ as "Estado_de_solicitud", l.$7~ as "Laboratorio_solicitado",
+        m.$7~ as "Materia", u.$7~ as "Responsable"
+        FROM (($8~ s INNER JOIN $9~ l ON s.$10~ = l.$11~)
+        INNER JOIN $12~ m ON s.$13~ = m.$11~)
+        INNER JOIN $14~ u ON s.$15~ = u.$16~
+        WHERE s.$3~ = $17 AND s.$2~ = $18 AND s.$4~ = $19 AND s.$5~ = $20;`
+        ,['id','fecha_solicitud','fecha_inicio','hora_inicio','hora_fin','estado','nombre','solicitud','laboratorio','codigo_laboratorio','codigo','materia','codigo_materia','usuario','responsable_carnet','carnet',fechaIni,fechaSol,horaIni,horaFin])
+        .then(data=>{        
+            res.status(200).json(data);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+    }
+    else if (fechaIni && fechaSol && horaIni && horaFin && (!nombreLab) && (!nombreMat) && (!carnetResponsable) && (estadoSol != 'todas')) {
+        await db.connection.any(`SELECT s.$1~ as "No_de_solicitud", s.$2~ as "Fecha_de_solicitud", s.$3~ as "Fecha_de_reserva",
+        CONCAT('de ', s.$4~, ' a ', s.$5~) as "Duracion", s.$6~ as "Estado_de_solicitud", l.$7~ as "Laboratorio_solicitado",
+        m.$7~ as "Materia", u.$7~ as "Responsable"
+        FROM (($8~ s INNER JOIN $9~ l ON s.$10~ = l.$11~)
+        INNER JOIN $12~ m ON s.$13~ = m.$11~)
+        INNER JOIN $14~ u ON s.$15~ = u.$16~
+        WHERE s.$3~ = $17 AND s.$6~ = $18 AND s.$2~ = $19 AND s.$4~ = $20 AND s.$5~ = $21;`
+        ,['id','fecha_solicitud','fecha_inicio','hora_inicio','hora_fin','estado','nombre','solicitud','laboratorio','codigo_laboratorio','codigo','materia','codigo_materia','usuario','responsable_carnet','carnet',fechaIni,estadoSol,fechaSol,horaIni,horaFin])
+        .then(data=>{        
+            res.status(200).json(data);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+    }
+    else if (fechaIni && fechaSol && horaIni && horaFin && nombreLab && (!nombreMat) && (!carnetResponsable) && (estadoSol == 'todas')) {
+        await db.connection.any(`SELECT s.$1~ as "No_de_solicitud", s.$2~ as "Fecha_de_solicitud", s.$3~ as "Fecha_de_reserva",
+        CONCAT('de ', s.$4~, ' a ', s.$5~) as "Duracion", s.$6~ as "Estado_de_solicitud", l.$7~ as "Laboratorio_solicitado",
+        m.$7~ as "Materia", u.$7~ as "Responsable"
+        FROM (($8~ s INNER JOIN $9~ l ON s.$10~ = l.$11~)
+        INNER JOIN $12~ m ON s.$13~ = m.$11~)
+        INNER JOIN $14~ u ON s.$15~ = u.$16~
+        WHERE s.$3~ = $17 AND s.$2~ = $18 AND s.$4~ = $19 AND s.$5~ = $20 AND l.$7~ = $21;`
+        ,['id','fecha_solicitud','fecha_inicio','hora_inicio','hora_fin','estado','nombre','solicitud','laboratorio','codigo_laboratorio','codigo','materia','codigo_materia','usuario','responsable_carnet','carnet',fechaIni,fechaSol,horaIni,horaFin,nombreLab])
+        .then(data=>{        
+            res.status(200).json(data);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+    }
+    else if (fechaIni && fechaSol && horaIni && horaFin && nombreLab && (!nombreMat) && (!carnetResponsable) && (estadoSol != 'todas')) {
+        await db.connection.any(`SELECT s.$1~ as "No_de_solicitud", s.$2~ as "Fecha_de_solicitud", s.$3~ as "Fecha_de_reserva",
+        CONCAT('de ', s.$4~, ' a ', s.$5~) as "Duracion", s.$6~ as "Estado_de_solicitud", l.$7~ as "Laboratorio_solicitado",
+        m.$7~ as "Materia", u.$7~ as "Responsable"
+        FROM (($8~ s INNER JOIN $9~ l ON s.$10~ = l.$11~)
+        INNER JOIN $12~ m ON s.$13~ = m.$11~)
+        INNER JOIN $14~ u ON s.$15~ = u.$16~
+        WHERE s.$3~ = $17 AND s.$6~ = $18 AND s.$2~ = $19 AND s.$4~ = $20 AND s.$5~ = $21 AND l.$7~ = $22;`
+        ,['id','fecha_solicitud','fecha_inicio','hora_inicio','hora_fin','estado','nombre','solicitud','laboratorio','codigo_laboratorio','codigo','materia','codigo_materia','usuario','responsable_carnet','carnet',fechaIni,estadoSol,fechaSol,horaIni,horaFin,nombreLab])
+        .then(data=>{        
+            res.status(200).json(data);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+    }
+    else if (fechaIni && fechaSol && horaIni && horaFin && nombreLab && nombreMat && (!carnetResponsable) && (estadoSol == 'todas')) {
+        await db.connection.any(`SELECT s.$1~ as "No_de_solicitud", s.$2~ as "Fecha_de_solicitud", s.$3~ as "Fecha_de_reserva",
+        CONCAT('de ', s.$4~, ' a ', s.$5~) as "Duracion", s.$6~ as "Estado_de_solicitud", l.$7~ as "Laboratorio_solicitado",
+        m.$7~ as "Materia", u.$7~ as "Responsable"
+        FROM (($8~ s INNER JOIN $9~ l ON s.$10~ = l.$11~)
+        INNER JOIN $12~ m ON s.$13~ = m.$11~)
+        INNER JOIN $14~ u ON s.$15~ = u.$16~
+        WHERE s.$3~ = $17 AND s.$2~ = $18 AND s.$4~ = $19 AND s.$5~ = $20 AND l.$7~ = $21 AND m.$7~ = $22;`
+        ,['id','fecha_solicitud','fecha_inicio','hora_inicio','hora_fin','estado','nombre','solicitud','laboratorio','codigo_laboratorio','codigo','materia','codigo_materia','usuario','responsable_carnet','carnet',fechaIni,fechaSol,horaIni,horaFin,nombreLab,nombreMat])
+        .then(data=>{        
+            res.status(200).json(data);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+    }
+    else if (fechaIni && fechaSol && horaIni && horaFin && nombreLab && nombreMat && (!carnetResponsable) && (estadoSol != 'todas')) {
+        await db.connection.any(`SELECT s.$1~ as "No_de_solicitud", s.$2~ as "Fecha_de_solicitud", s.$3~ as "Fecha_de_reserva",
+        CONCAT('de ', s.$4~, ' a ', s.$5~) as "Duracion", s.$6~ as "Estado_de_solicitud", l.$7~ as "Laboratorio_solicitado",
+        m.$7~ as "Materia", u.$7~ as "Responsable"
+        FROM (($8~ s INNER JOIN $9~ l ON s.$10~ = l.$11~)
+        INNER JOIN $12~ m ON s.$13~ = m.$11~)
+        INNER JOIN $14~ u ON s.$15~ = u.$16~
+        WHERE s.$3~ = $17 AND s.$6~ = $18 AND s.$2~ = $19 AND s.$4~ = $20 AND s.$5~ = $21 AND l.$7~ = $22 AND m.$7~ = $23;`
+        ,['id','fecha_solicitud','fecha_inicio','hora_inicio','hora_fin','estado','nombre','solicitud','laboratorio','codigo_laboratorio','codigo','materia','codigo_materia','usuario','responsable_carnet','carnet',fechaIni,estadoSol,fechaSol,horaIni,horaFin,nombreLab,nombreMat])
         .then(data=>{        
             res.status(200).json(data);
         })

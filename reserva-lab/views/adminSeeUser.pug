@@ -27,18 +27,19 @@ html(lang="en")
                             button(type="button" class="btn btn-outline-danger my-2 my-sm-0" id='cancelBtn')='Cancelar'
         br
         div(class='container')
+            br
             section
-                table(class="table table-hover table-responsive text-center")
+                table(class="table table-hover text-center table-responsive")
                     thead
-                        tr(class='table-dark')
-                            th(scope="col")='Carnet'
-                            th(scope="col")='Nombre'
-                            th(scope="col")='Correo'
-                            th(scope="col")='Tipo'
-                            th(scope='col')='Carrera/Materia'
-                            th(scope="col")='Rol'
-                            th(scope="col")='Estado'
-                            th(scope="col")='Acción'
+                        tr()
+                            th(scope="col" class='align-middle')='Carnet'
+                            th(scope="col" class='align-middle')='Nombre'
+                            th(scope="col" class='align-middle')='Correo'
+                            th(scope="col" class='align-middle')='Tipo'
+                            th(scope='col' class='align-middle')='Carrera/Materia'
+                            th(scope="col" class='align-middle')='Rol'
+                            th(scope="col" class='align-middle')='Estado'
+                            th(scope="col" class='align-middle')='Acción'
                     tbody(id='table_body')
         //- editModal
         div(class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true")    
@@ -58,7 +59,7 @@ html(lang="en")
                         div(class="form-group")
                             label(for="userEmail")='Correo'
                             input(type="text" class="form-control" id="userEmail" placeholder="example@uca.edu.sv" name='email')
-                        div(class="form-group")
+                        //-div(class="form-group")
                             label(for="userType")='Tipo'
                             select(class="form-control" id="userType" name='type')
                                 option='estudiante'

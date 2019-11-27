@@ -6,6 +6,7 @@ const advancedBtn = document.getElementById('advancedBtn');
 const filterBtn = document.getElementById('filterBtn');
 const stateBtn = document.getElementsByClassName('stateBtn');
 
+
 //Loading the users data
 (async function loadUser(){
     refresh();
@@ -74,7 +75,7 @@ $("#exampleModalCenter").on("show.bs.modal", async e=>{
     const userCarnet = document.getElementById('userCarnet');
     const userName = document.getElementById('userName');
     const userEmail = document.getElementById('userEmail');
-    const userType = document.getElementById('userType');
+    //const userType = document.getElementById('userType');
     
     await fetch(`http://localhost:3000/users/show?carnet=${carnet}`)
       .then(res => {
@@ -85,7 +86,7 @@ $("#exampleModalCenter").on("show.bs.modal", async e=>{
             userCarnet.innerText = object.carnet;
             userName.value = object.nombre;
             userEmail.value = object.correo;
-            userType.value = object.tipo;
+            //userType.value = object.tipo;
           });
       })
 });
@@ -96,8 +97,9 @@ editBtn.addEventListener('click', async event=>{
     const userName = document.getElementById('userName');
     const userPass = document.getElementById('userPass');
     const userEmail = document.getElementById('userEmail');
-    const userType = document.getElementById('userType');
-
+    //const userType = document.getElementById('userType');
+    //const truePass = await hp.helpers.encryptPassword(userPass);
+    
     await fetch(`http://localhost:3000/users/edit?carnet=${userCarnet.innerText}`,
     {
         method: 'PUT',
@@ -105,8 +107,8 @@ editBtn.addEventListener('click', async event=>{
         body: JSON.stringify({
             name: userName.value,
             pass: userPass.value,
-            email: userEmail.value,
-            type: userType.value
+            email: userEmail.value
+            //type: userType.value
         })
     })
     .then(res=>{
@@ -117,7 +119,7 @@ editBtn.addEventListener('click', async event=>{
              userName.value = object.nombre;
              userPass.value = '';
              userEmail.value = object.correo;
-             userType.value = object.tipo;
+             //userType.value = object.tipo;
         })
     })
     .catch(err=>{

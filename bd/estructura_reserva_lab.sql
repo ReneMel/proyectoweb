@@ -71,7 +71,7 @@ create table laboratorio(
 
 drop table if exists solicitud cascade;
 create table solicitud(
-	id text not null,
+	id serial,
 	equipo text,
 	fecha_inicio date not null,
 	fecha_fin date not null,

@@ -105,6 +105,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+let Changebtn;
 //import $  from '../node_modules/jquery';
 //import bootstrap from '../node_modules/bootstrap/js';
 //let modalconfirm = document.getElementById('ConfirmModa')
@@ -153,17 +154,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // your event source
       {
+        className: 'confirmadas',
         url: `http://localhost:3000/evento?Labo=${opt}`, // use the `url` property
         color: 'yellow',    // an option!
         textColor: 'black'  // an option!
       },
       {
+        className: 'mantenimiento',
         url: `http://localhost:3000/sp?Labo=${opt}`,
         color:'green',  
         textColor:'black'
       },
       //logs de usuario
       {
+        className: 'pendiente',
         url: `http://localhost:3000/eByu`,
         color: 'Gray',
         textColor: 'Black',
@@ -173,8 +177,30 @@ document.addEventListener('DOMContentLoaded', function() {
   
     ],
     eventClick: function(info) {
-      $('#ConfirmModal').modal('show');
-      info.el.style.borderColor = 'red';
+        console.log($(info).attr("textColor"));
+        console.log(info.event)
+        console.log(info.event._def.publicId);
+        let publicid =info.event._def.publicId;
+        
+        console.log(info.el.classList[5]);
+        
+        console.log
+        ('Event: ' + info.event.title);
+        console.log
+        ('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+        console.log
+        ('View: ' + info.view.type);
+        console.log(info);
+        Changebtn= document.getElementById('changeEbtn')
+        console.log(Changebtn.value);
+
+        if(info.el.classList[5]=='pendiente'){
+          $('#ConfirmModal').modal('show');
+          $('#modal-title').html(info.el.title);
+          info.el.style.borderColor = 'red';
+          $('#changeEbtn').val(publicid) 
+        }
+        
     }
     
   }); 
@@ -182,10 +208,6 @@ document.addEventListener('DOMContentLoaded', function() {
   
   calendar.render();
 });
-
-
-
-
 
 
 

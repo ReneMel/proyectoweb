@@ -39,5 +39,7 @@ router.get('/sp', GetLogIn.getSoporteEventoById)
 
 router.post('/event', GetLogIn.addSolicitud)
 
+router.put('/u', GetLogIn.updateEstado)
+
 //router.get('/add', GetLogIn.addSolicitud)
 module.exports = router;

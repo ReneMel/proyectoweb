@@ -12,7 +12,7 @@ html(lang="en")
     link(href='@fullcalendar/timegrid/main.css' rel='stylesheet')
     link(href='@fullcalendar/list/main.css' rel='stylesheet')
     Link(href='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.3/jquery-ui.css' rel='stylesheet') 
-    script(src="/dist/calendar.js")
+    
     title Calendario
   body
     header
@@ -90,16 +90,17 @@ html(lang="en")
             div(class="modal-dialog modal-dialog-centered" role="document")
                 div(class="modal-content")
                     div(class="modal-header")
-                        h5(class="modal-title" id="Evento") Evento
+                        h5(class="modal-title" id="Evento") 
                         button(type="button" class="close" data-dismiss="modal" aria-label="Close")
                             span(aria-hidden="true") &times;
-                    div(class="modal-body")
-                                          
+                    div(class="modal-body d-flex justify-content-between")
+                        button.btn.btn-success(id='changeEbtn'  name ="aceptar") Aceptar
+                        button.btn.btn-danger(id='denegbtn'  name="denegar5") Denegar                  
                     div(class="modal-footer")
                         button(class="btn btn-secondary" data-dismiss="modal" id='closeBtn')='Cerrar'                     
-                        button.btn.btn-primary(id="UpdateEvent") Solicitar
  
     div(id="calendar" class="calendar")
+  script(src="/dist/calendar.js")
   script(src="javascripts/addInfo.js")    
   script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous")

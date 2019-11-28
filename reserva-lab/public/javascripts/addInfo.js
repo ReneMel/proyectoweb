@@ -17,14 +17,15 @@ denegbtn.addEventListener('click', async()=>{
         })
     })
     .then(res=>{
-        return res.json()
+       // return window.location.reload(true)
     })
     .then(data=>{
-        console.log(date);
+        
+        
         
     })
-    window.location.replace(window.location.pathname + window.location.search + window.location.hash);
     
+    refresh();
 })
 Changebtn.addEventListener('click', async()=>{
         console.log('Aprestaste'+ Changebtn.value);
@@ -38,14 +39,14 @@ Changebtn.addEventListener('click', async()=>{
             })
         })
         .then(res=>{
-            return res.json()
+            //return res.json()
         })
         .then(data=>{
-            console.log(date);
+           
             
         })
-    window.location.replace(window.location.pathname + window.location.search + window.location.hash);
-       
+
+   refresh();     
 })
 
 
@@ -92,3 +93,7 @@ Solitbtn.addEventListener('click', async event=>{
     button( class="btn btn-primary" id='Solitbtn')='Solicitar'
 
 })*/
+
+function refresh() {
+    window.location.reload()
+}

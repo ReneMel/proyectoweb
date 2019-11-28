@@ -437,7 +437,7 @@ const updateEstado= async (req, res)=>{
 	set	estado = $1
     where s.id=$2`, [estado,id])
     .then(data=>{
-            console.log(data)
+            res.redirect(303,'/calendar')
     })
     .catch(err=>{
         console.log(err);

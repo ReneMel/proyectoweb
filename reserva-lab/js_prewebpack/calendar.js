@@ -97,6 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
           $('#modal-title').html(info.el.title);
           info.el.style.borderColor = 'red';
           $('#changeEbtn').val(publicid) 
+          $('#denegbtn').val(publicid) 
         }
         
     }

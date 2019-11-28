@@ -6,7 +6,7 @@ let Solitbtn= document.getElementById('Solitbtn')
 
 document.addEventListener('DOMContentLoaded', async ()=>{
 
-    await fetch(`http://localhost:3000/matBU`,)
+    await fetch(`http://localhost:3000/calendar/matBU`,)
     .then(res => {
           return res.json()
           

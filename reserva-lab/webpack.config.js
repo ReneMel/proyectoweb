@@ -10,7 +10,7 @@ module.exports = {
     extensions: [ '.js' ]
   },
   output: {
-    filename: 'calendar.js',
+    filename: 'Usercalendar.js',
     path: path.join(__dirname, 'public/dist')
   },
 

@@ -23,6 +23,7 @@ router.post('/event', calendarControl.addSolicitud)
 router.post('/',function(req,res,next){
     //console.log(req.body.Labo)
     opt=req.body.Labo
+    opt2=0
 
     res.redirect(`/?l=${opt}&e=${opt2}`)
 

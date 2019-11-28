@@ -50,7 +50,7 @@ const getEventoById = async (req, res)=>{
                                              concat(s.fecha_fin,$3,s.hora_fin) as end from solicitud as s,
                                              materia as m where estado = $4 and codigo_laboratorio= $5 
                                              and m.codigo=s.codigo_materia;`, 
-                                             ['Labo-0','T','T','confirmado', opt,': '])
+                                             ['Labo-0','T','T','confirmada', opt,': '])
         .then(data => {
             //console.log('DATA:', data);
             return res.status(200).json(data); // print and send data;
@@ -65,6 +65,7 @@ const getEventoById = async (req, res)=>{
 }
 const getEventbyUser= async(req,res)=>{
     const carnet = req.user.carnet  //req.session.passport.carnet;
+    
     const event = await db.connection.any(`
     select s.id as id, concat($1,s.codigo_laboratorio,$2,m.nombre)as title, 
                      concat(s.fecha_inicio,$3,s.hora_inicio) as start, concat(s.fecha_fin,$3,s.hora_fin) as end  
@@ -79,7 +80,7 @@ const getEventbyUser= async(req,res)=>{
     .json({
         message: 'Something went wrong'
     });
-})
+    })
 }
 const getMaterias = async(req,res)=>{
     const carnet =  req.user.carnet;
@@ -117,7 +118,7 @@ const addSolicitud= async(req, res)=>{
     const estado = 'pendiente'
     const carnet = req.user.carnet
     
-    
+    /*
     console.log(inic);
     console.log(fin);
     console.log(hinic);
@@ -126,7 +127,7 @@ const addSolicitud= async(req, res)=>{
     console.log(mat)
     console.log(equipo);
     
-    
+    */
     
     const add= await db.connection.any(`
     insert into solicitud(equipo,fecha_inicio,fecha_fin,hora_inicio,hora_fin,fecha_solicitud,estado,responsable_carnet,codigo_laboratorio, codigo_materia)

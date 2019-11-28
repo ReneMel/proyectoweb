@@ -8,7 +8,7 @@ let denegbtn = document.getElementById('denegbtn')
 denegbtn.addEventListener('click', async()=>{
     console.log('Aprestaste'+ Changebtn.value);
     
-    await fetch(`http://localhost:3000/u?es=rechazada&&id=${Changebtn.value}`,
+    await fetch(`http://localhost:3000/calendar/u?es=rechazada&&id=${Changebtn.value}`,
     {
         method: 'PUT',
         headers: {'Content-type': 'application/json; charset=UTF-8'},
@@ -25,7 +25,7 @@ denegbtn.addEventListener('click', async()=>{
         
     })
     
-    refresh();
+   // refresh();
 })
 Changebtn.addEventListener('click', async()=>{
         console.log('Aprestaste'+ Changebtn.value);
@@ -46,13 +46,13 @@ Changebtn.addEventListener('click', async()=>{
             
         })
 
-   refresh();     
+  // refresh();     
 })
 
 
 document.addEventListener('DOMContentLoaded', async ()=>{
 
-    await fetch(`http://localhost:3000/matBU`,)
+    await fetch(`http://localhost:3000/calendar/matBU`,)
     .then(res => {
           return res.json()
           

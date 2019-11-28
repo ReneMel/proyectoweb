@@ -32,7 +32,7 @@ const getSoporteEventoById= async(req,res)=>{
 const getEventoById = async (req, res)=>{
     const opt = req.query.Labo;
     if (opt==0){
-        const event = await db.connection.any('select concat($1,s.codigo_laboratorio,$5,m.nombre)as title, concat(s.fecha_inicio,$2,s.hora_inicio) as start, concat(s.fecha_fin,$3,s.hora_fin) as end from solicitud as s, materia as m where estado = $4  and m.codigo=s.codigo_materia;', ['Labo-0','T','T','confirmada',': '])
+        const event = await db.connection.any('select s.id as id ,concat($1,s.codigo_laboratorio,$5,m.nombre)as title, concat(s.fecha_inicio,$2,s.hora_inicio) as start, concat(s.fecha_fin,$3,s.hora_fin) as end from solicitud as s, materia as m where estado = $4  and m.codigo=s.codigo_materia;', ['Labo-0','T','T','confirmada',': '])
         .then(data => {
             //console.log('DATA:', data);
             return res.status(200).json(data); // print and send data;
@@ -45,7 +45,7 @@ const getEventoById = async (req, res)=>{
     })
     }
     else {
-        const event = await db.connection.any(`select concat($1,s.codigo_laboratorio,$6,m.nombre)as title,
+        const event = await db.connection.any(`select s.id as id, concat($1,s.codigo_laboratorio,$6,m.nombre)as title,
                                              concat(s.fecha_inicio,$2,s.hora_inicio) as start, 
                                              concat(s.fecha_fin,$3,s.hora_fin) as end from solicitud as s,
                                              materia as m where estado = $4 and codigo_laboratorio= $5 
@@ -66,7 +66,7 @@ const getEventoById = async (req, res)=>{
 const getEventbyUser= async(req,res)=>{
     const carnet = req.user.carnet  //req.session.passport.carnet;
     const event = await db.connection.any(`
-    select concat($1,s.codigo_laboratorio,$2,m.nombre)as title, 
+    select s.id as id, concat($1,s.codigo_laboratorio,$2,m.nombre)as title, 
                      concat(s.fecha_inicio,$3,s.hora_inicio) as start, concat(s.fecha_fin,$3,s.hora_fin) as end  
                      from solicitud as s, materia as m where s.responsable_carnet= $4 and m.codigo=s.codigo_materia and s.estado=$5;`,
                  ['Labo-0',': ','T', carnet,'pendiente'])
@@ -139,10 +139,31 @@ const addSolicitud= async(req, res)=>{
         return res.status(400).json(err)
     })
 }
+const updateEstado= async (req, res)=>{
+    let estado = req.query.es
+    console.log(estado);
+
+    let id = req.query.id
+    console.log(id);
+    
+    
+    const updt = await db.connection.any(`update solicitud as s 
+	set	estado = $1
+    where s.id=$2`, [estado,id])
+    .then(data=>{
+            res.redirect(303,'/calendar')
+    })
+    .catch(err=>{
+        console.log(err);
+        return res.status(400).json(err)
+    })
+}
+
 module.exports = {
     getEventoById,
     getSoporteEventoById,
     getEventbyUser,
     getMaterias,
-    addSolicitud
+    addSolicitud,
+    updateEstado
 }

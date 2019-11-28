@@ -5,21 +5,19 @@ const calendarControl = require('../controllers/calendarController')
 
 /* GET home page. */
 router.get('/', isLoggedIn, function(req, res, next) {
-  // if(req.session.passport == undefined) {
-  //   res.redirect('/login');
-  // }
-  // else {
-  //   res.render('index')
-  // } 
-  console.log(req.session);
+ if(req.session.passport.user.rol==false){ 
+      res.render('CalendarAdmin')
+  } else {
+    res.render('CalendarDefault')
+  } 
   
-  res.render('index')
 });
-router.get(`/Evento`,calendarControl.getEventoById)
+router.get(`/evento`,calendarControl.getEventoById)
 router.get('/sp', calendarControl.getSoporteEventoById)
 router.get('/add', calendarControl.addSolicitud)
 router.get('/eByU', calendarControl.getEventbyUser)
 router.get('/matBU',calendarControl.getMaterias)
+router.put('/u', calendarControl.updateEstado)
 
 router.post('/event', calendarControl.addSolicitud)
 router.post('/',function(req,res,next){

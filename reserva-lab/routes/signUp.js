@@ -12,8 +12,8 @@ router.get('/career', supControler.getCareer);
 
 router.post('/create', (req,res)=>{
     passport.authenticate('local.signup', {
-        successRedirect: '/login',
-        failureRedirect: '/'
+        successRedirect: '/',
+        failureRedirect: '/signUp'
     })(req,res);
 })
 module.exports = router;

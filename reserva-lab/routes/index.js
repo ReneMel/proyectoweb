@@ -1,46 +1,20 @@
 const express = require('express');
-const app = express();
-const path = require('path');
 const router = express.Router();
-const {isLoggedIn} = require('../models/auth')
-const getReport = require('../controllers/getReport');
+const passport = require('passport')
+const {isNotLoggedIn} = require('../models/auth');
 
-var GetLogIn = require('../controllers/getLogIn')
-//const eventos= GetLogIn.getEvents()
-let opt=0
-let opt2='c'
 
-router.get('/eByU', GetLogIn.getEventbyUser)
-router.get('/matBU',GetLogIn.getMaterias)
-
-/* GET home page. */
-router.get('/calendar', isLoggedIn, function(req, res, next) {
-  console.log(req.session.passport.user.rol);
-  if(req.session.passport.user.rol==false){ 
-      res.render('CalendarAdmin')
-  } else {
-    res.render('CalendarDefault')
-  }
-  
-  
+router.get('/', isNotLoggedIn, (req, res)=>{
+  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+  res.render('login');
 });
 
-router.get(`/Evento`,GetLogIn.getEventoById)
+router.post('/signin', (req,res)=>{
+  passport.authenticate('local.signin', {
+      successRedirect: '/calendar',
+      failureRedirect: '/'
+  })(req,res);
+});
 
-router.post('/calendar',function(req,res,next){
-    console.log(req.body.estado)
-    opt2=req.body.estado
-    opt=req.body.Labo
 
-    res.redirect(`/calendar?l=${opt}&e=${opt2}`)
-
-  });
-
-router.get('/sp', GetLogIn.getSoporteEventoById)
-
-router.post('/event', GetLogIn.addSolicitud)
-
-router.put('/u', GetLogIn.updateEstado)
-
-//router.get('/add', GetLogIn.addSolicitud)
 module.exports = router;

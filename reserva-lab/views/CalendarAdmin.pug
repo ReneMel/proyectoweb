@@ -22,8 +22,8 @@ html(lang="en")
                 span(class="navbar-toggler-icon")
             div(class="collapse navbar-collapse" id="navbarSupportedContent")
                 ul(class="navbar-nav mr-auto")
-                    li(class="nav-item active"): a(class="nav-link" href="#")='Reservas'
-                    li(class="nav-item active"): a(class="nav-link" href="#")='Reportes'
+                    li(class="nav-item active"): a(class="nav-link" href="/users")='Usuarios'
+                    li(class="nav-item active"): a(class="nav-link" href="/informe")='Reportes'
                     li(class="nav-item active"): a(class="nav-link" href="#")='Búsqueda Avanzada'
                 form(class="form-inline my-2 my-lg-0")
     br
@@ -32,7 +32,7 @@ html(lang="en")
       label(for="Labo") Parámetros de busqueda: 
         small(class="text-muted") (por defecto muestra todos los eventos) 
       br
-      form(method='post' action='/calendar')
+      form(method='post' action='/')
         select(class='form_group text-center' name='Labo' id='LaboId')
               option(value='0') Todos
               option(value='1') DEI Laboratorio-01

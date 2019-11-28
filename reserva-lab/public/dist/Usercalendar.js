@@ -175,34 +175,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       // any other sources...
   
-    ],
-    eventClick: function(info) {
-        console.log($(info).attr("textColor"));
-        console.log(info.event)
-        console.log(info.event._def.publicId);
-        let publicid =info.event._def.publicId;
-        
-        console.log(info.el.classList[5]);
-        
-        console.log
-        ('Event: ' + info.event.title);
-        console.log
-        ('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-        console.log
-        ('View: ' + info.view.type);
-        console.log(info);
-        Changebtn= document.getElementById('changeEbtn')
-        console.log(Changebtn.value);
-
-        if(info.el.classList[5]=='pendiente'){
-          $('#ConfirmModal').modal('show');
-          $('#modal-title').html(info.el.title);
-          info.el.style.borderColor = 'red';
-          $('#changeEbtn').val(publicid) 
-          $('#denegbtn').val(publicid) 
-        }
-        
-    }
+    ]
     
   }); 
   //agregando comentarios para poder commitear 
@@ -14450,4 +14423,4 @@ var main = Object(_fullcalendar_core__WEBPACK_IMPORTED_MODULE_0__["createPlugin"
 /***/ })
 
 /******/ });
-//# sourceMappingURL=calendar.js.map
+//# sourceMappingURL=Usercalendar.js.map

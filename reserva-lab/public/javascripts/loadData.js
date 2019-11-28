@@ -7,6 +7,8 @@ const filterBtn = document.getElementById('filterBtn');
 const stateBtn = document.getElementsByClassName('stateBtn');
 
 
+
+
 //Loading the users data
 (async function loadUser(){
     refresh();

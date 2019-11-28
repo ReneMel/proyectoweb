@@ -1,0 +1,107 @@
+
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    
+    link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous")
+    link(href='stylesheets/calendar.css' rel='stylesheet')
+    link(href='@fullcalendar/core/main.css' rel='stylesheet')
+    link(href='@fullcalendar/daygrid/main.css' rel='stylesheet')
+    link(href='@fullcalendar/timegrid/main.css' rel='stylesheet')
+    link(href='@fullcalendar/list/main.css' rel='stylesheet')
+    Link(href='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.3/jquery-ui.css' rel='stylesheet') 
+    
+    title Calendario
+  body
+    header
+      nav(class="navbar navbar-expand-lg navbar-light bg-light")
+            a(class="navbar-brand" href="#"): img(src="/images/Logotipo_UCA.png" width="225" height="125")
+            button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
+                span(class="navbar-toggler-icon")
+            div(class="collapse navbar-collapse" id="navbarSupportedContent")
+                ul(class="navbar-nav mr-auto")
+                    li(class="nav-item active"): a(class="nav-link" href="/users")='Usuarios'
+                    li(class="nav-item active"): a(class="nav-link" href="/informe")='Reportes'
+                    li(class="nav-item active"): a(class="nav-link" href="#")='Búsqueda Avanzada'
+                form(class="form-inline my-2 my-lg-0")
+    br
+    
+    div(clas="form-group container-fluid text-center")
+      label(for="Labo") Parámetros de busqueda: 
+        small(class="text-muted") (por defecto muestra todos los eventos) 
+      br
+      form(method='post' action='/')
+        select(class='form_group text-center' name='Labo' id='LaboId')
+              option(value='0') Todos
+              option(value='1') DEI Laboratorio-01
+              option(value='2') DEI Laboratorio-02
+              option(value='3') DEI Laboratorio-03
+              option(value='4') DEI Laboratorio-04
+              option(value='5') DEI Laboratorio-05
+              option(value='6') DEI Laboratorio-06
+              option(value='7') DEI Laboratorio-07
+        button(type="submit" class="btn btn-primary btn-block" id='buttonTrigger')='Buscar'   
+      br 
+    button(type="button" data-toggle='modal' data-target='#advancedModal') Crear Solicitud de Reserva
+    div(class="modal fade" id="advancedModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true")    
+            div(class="modal-dialog modal-dialog-centered" role="document")
+                div(class="modal-content")
+                    div(class="modal-header")
+                        h5(class="modal-title" id="Solicitud") Solicitud
+                        button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                            span(aria-hidden="true") &times;
+                    form(action="/event", method="post")
+                      div(class="modal-body")
+                          div(class="form-group")
+                              label(for="DateInic")='fecha Inicio'
+                              input(type="date" class="form-control" id="DateInic" name='dateinic')
+                          div(class="form-group")
+                              label(for="DateFin")='Fecha Final'
+                              input(type="date" class="form-control" id="DateFin"  required="required" name='dateFin')
+                          div(class="form-group")
+                              label(for="hinic")='Hora Inicio'
+                              input(type="time" class="form-control" id="Hinic"  name='hinic')
+                          div(class="form-group")
+                              label(for="hfin")='Hora Inicio'
+                              input(type="time" class="form-control" id="hfin"  name='hfin')                            
+                          div(class="form-group")
+                              label(for="Labo")='Laboratorio'
+                                select(class='form_group text-center' name='labosolicitud' id='LaboSolicitud')
+                                  option(value='1') DEI Laboratorio-01
+                                  option(value='2') DEI Laboratorio-02
+                                  option(value='3') DEI Laboratorio-03
+                                  option(value='4') DEI Laboratorio-04
+                                  option(value='5') DEI Laboratorio-05
+                                  option(value='6') DEI Laboratorio-06
+                                  option(value='7') DEI Laboratorio-07 
+                          div(class="form-group")
+                            label(for="necesidades")="Equipo: " 
+                            input(type="text", name="equipo" class='form_group text-center' id="equipo")
+                          div(class='form-group' id='dataMaterias')
+                            label(for='materias') Materia: 
+                            select(id='materias' class ='form-group' name="materias")                     
+                      div(class="modal-footer")
+                          button(class="btn btn-secondary" data-dismiss="modal" id='closeBtn')='Cerrar'                     
+                          button.btn.btn-primary(type='submit') Solicitar
+      
+    div(class="modal fade" id="ConfirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true")    
+            div(class="modal-dialog modal-dialog-centered" role="document")
+                div(class="modal-content")
+                    div(class="modal-header")
+                        h5(class="modal-title" id="Evento") Actualizar Estado del Evento
+                        button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                            span(aria-hidden="true") &times;
+                    div(class="modal-body d-flex justify-content-between")
+                        button.btn.btn-success(id='changeEbtn'  name ="aceptar") Aceptar
+                        button.btn.btn-danger(id='denegbtn'  name="denegar5") Denegar                  
+                    div(class="modal-footer")
+                        button(class="btn btn-secondary" data-dismiss="modal" id='closeBtn')='Cerrar'                     
+ 
+    div(id="calendar" class="calendar")
+  script(src="/dist/calendar.js")
+  script(src="javascripts/addInfo.js")    
+  script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous")
+  script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous")

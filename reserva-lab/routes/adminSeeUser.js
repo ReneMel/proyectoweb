@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const getLogIn = require('../controllers/getLogIn');
+const usersControl = require('../controllers/usersController');
 const {isLoggedIn} = require('../models/auth');
 
 /*GET*/
@@ -13,17 +13,17 @@ router.get('/', isLoggedIn, (req,res)=>{
     }
     
 }); //getLogIn.renderUserView
-router.get('/search', getLogIn.getUserById)
-router.get('/show', getLogIn.getUserById);
-router.get('/fill', getLogIn.getAllUser);
-router.get('/fillAdvanced', getLogIn.getAttribute);
-router.get('/showAdvanced', getLogIn.getAdvancedUser)
+router.get('/search', usersControl.getUserById)
+router.get('/show', usersControl.getUserById);
+router.get('/fill', usersControl.getAllUser);
+router.get('/fillAdvanced', usersControl.getAttribute);
+router.get('/showAdvanced', usersControl.getAdvancedUser)
 router.get('/logout', (req,res)=>{
     req.logOut();
-    res.redirect('/login');
+    res.redirect('/');
 })
 /*PUT*/
-router.put('/edit', getLogIn.updateUser);
-router.put('/turn', getLogIn.turnUser)
+router.put('/edit', usersControl.updateUser);
+router.put('/turn', usersControl.turnUser)
 
 module.exports = router;

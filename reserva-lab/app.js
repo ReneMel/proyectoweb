@@ -8,12 +8,13 @@ const passport = require('passport');
 const session = require('express-session');
 
 var indexRouter = require('./routes/index');
-var logIn = require('./routes/login');
+//var logIn = require('./routes/login');
 var adminSeeUser = require('./routes/adminSeeUser');
-var usersRouter = require('./routes/users');
+//var usersRouter = require('./routes/users');
 var informe = require('./routes/informe');
 var signUp = require('./routes/signUp');
 var forbidden = require('./routes/forbidden');
+var calendar = require('./routes/calendar');
 
 // initialization
 var app = express();
@@ -51,8 +52,9 @@ app.use(passport.session());
 // });
 
 app.use('/', indexRouter);
-app.use('/login', logIn);
+//app.use('/login', logIn);
 app.use('/signUp', signUp);
+app.use('/calendar', calendar);
 app.use('/users', adminSeeUser);
 //app.use('/admin/users', adminSeeUser);
 //app.use('/users', usersRouter);

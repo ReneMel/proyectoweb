@@ -5,45 +5,55 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="ie=edge")
         link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous")
         link(rel="stylesheet" href="/stylesheets/login.css")
+        script(type="module" src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons/ionicons.esm.js")
         title Informe 
     body
-        nav(class="navbar navbar-expand-lg navbar-light bg-light")
-            img(src="/images/Logotipo_UCA.png" width="225" height="125")
-            div(class="navtitle")
-                h1(class="navtitle-text")='Sistema de Reservas Edificio Jon Cortina'      
-        form(method='POST' action='/?' class="container")
-          div(class='form-group text-center')
-            label(for='fechaSol') Fecha de Solicitud:
-            input(type='date', class='form-control' name='fechaSol' id="fechaSol")
-          div(class='form-group text-center')
-            label(for='fechaIni') Fecha de Reserva:
-            input(type='date', class='form-control' name='fechaIni' id="fechaIni")
-          div(class='form-group text-center')
-            label(for='horaIni') Hora de Inicio:
-            input(type='time', class='form-control' name='horaIni' id="horaIni")
-          div(class='form-group text-center')
-            label(for='horaFin') Hora de finalización:
-            input(type='time' class='form-control' name='horaFin' id="horaFin")
-          div(class='form-group text-center')
-            label(for='nombreLab') Laboratorio Solicitado:
-            input(type='text' class='form-control' name='nombreLab' id="nombreLab")
-          div(class='form-group text-center')
-            label(for='estadoSol') Estado de Solicitud:
-            select(class='form_group' name='estadoSol' id="estadoSol")
-              option='todas'
-              option='confirmada'
-              option='pendiente'
-              option='rechazada'
-          div(class='form-group text-center')
-            label(for='nombreMat') Materia: 
-            input(type='text' class='form-control' name='nombreMat' id="nombreMat") 
-          div(class='form-group text-center')
-            label(for='carnetResponsable') Carnet del Responsable(facilitador o catedrático): 
-            input(type='text' class='form-control' name='carnetResponsable' id="carnetResponsable")           
-          a(href='informe/advancedRequest' class="btn btn-primary" id='requestBtn' data-dismiss='modal')='Solicitar'
+      nav(class="navbar navbar-expand-lg navbar-light bg-light")
+        a(class="navbar-brand" href="#"): img(src="/images/Logotipo_UCA.png" width="225" height="125")
+        button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
+          span(class="navbar-toggler-icon")
+        div(class="collapse navbar-collapse" id="navbarSupportedContent")
+          ul(class="navbar-nav mr-auto")
+            li(class="nav-item active"): a(class="nav-link" href="#")='Reservas'
+            li(class="nav-item active"): a(class="nav-link" href="#")='Reportes'
+            li(class="nav-item active"): a(class="nav-link" href="users/fillAdvanced" data-toggle='modal' data-target='#advancedModal' id='advancedBtn')='Búsqueda Avanzada'
+            li(class="nav-item active"): a(class="nav-link" href="users/logout")
+              ion-icon(name='power')
+      br
+      form(method='POST' action='/?' class="container")
+        div(class='form-group text-center')
+          label(for='fechaSol') Fecha de Solicitud:
+          input(type='date', class='form-control' name='fechaSol' id="fechaSol")
+        div(class='form-group text-center')
+          label(for='fechaIni') Fecha de Reserva:
+          input(type='date', class='form-control' name='fechaIni' id="fechaIni")
+        div(class='form-group text-center')
+          label(for='horaIni') Hora de Inicio:
+          input(type='time', class='form-control' name='horaIni' id="horaIni")
+        div(class='form-group text-center')
+          label(for='horaFin') Hora de finalización:
+          input(type='time' class='form-control' name='horaFin' id="horaFin")
+        div(class='form-group text-center')
+          label(for='nombreLab') Laboratorio Solicitado:
+          input(type='text' class='form-control' name='nombreLab' id="nombreLab")
+        div(class='form-group text-center')
+          label(for='estadoSol') Estado de Solicitud:
+          select(class='form_group' name='estadoSol' id="estadoSol")
+            option='todas'
+            option='confirmada'
+            option='pendiente'
+            option='rechazada'
+        div(class='form-group text-center')
+          label(for='nombreMat') Materia: 
+          input(type='text' class='form-control' name='nombreMat' id="nombreMat") 
+        div(class='form-group text-center')
+          label(for='carnetResponsable') Carnet del Responsable(facilitador o catedrático): 
+          input(type='text' class='form-control' name='carnetResponsable' id="carnetResponsable")           
+        a(href='informe/advancedRequest' class="btn btn-primary" id='requestBtn' data-dismiss='modal')='Solicitar'
 
 
     script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous")
     script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous")
     script(src="/javascripts/reportData.js")
+    script(src="/javascripts/loadData.js")

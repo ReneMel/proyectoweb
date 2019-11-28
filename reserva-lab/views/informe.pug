@@ -11,39 +11,39 @@ html(lang="en")
             img(src="/images/Logotipo_UCA.png" width="225" height="125")
             div(class="navtitle")
                 h1(class="navtitle-text")='Sistema de Reservas Edificio Jon Cortina'      
-        form(method='POST' action='/?')
+        form(method='POST' action='/?' class="container")
           div(class='form-group text-center')
-            label(for='fecha_inicio') Fecha Inicio:
-            input(type='date', class='form-control' name='fecha_inicio')
+            label(for='fechaSol') Fecha de Solicitud:
+            input(type='date', class='form-control' name='fechaSol' id="fechaSol")
           div(class='form-group text-center')
-            label(for='fecha_final') Fecha Final:
-            input(type='date', class='form-control' name='fecha_final')
+            label(for='fechaIni') Fecha de Reserva:
+            input(type='date', class='form-control' name='fechaIni' id="fechaIni")
           div(class='form-group text-center')
-            label(for='favoriteBook') Agrupación:
-            input(type='text', class='form-control' placeholder='Nombre agrupación' name='agrupacion')
+            label(for='horaIni') Hora de Inicio:
+            input(type='time', class='form-control' name='horaIni' id="horaIni")
           div(class='form-group text-center')
-            label(for='sala') Sala:
-            input(type='text' class='form-control' name='Sala')
+            label(for='horaFin') Hora de finalización:
+            input(type='time' class='form-control' name='horaFin' id="horaFin")
           div(class='form-group text-center')
-            label(for='descripción2') Descripción:
-            input(type='text' class='form-control' name='descripción')
+            label(for='nombreLab') Laboratorio Solicitado:
+            input(type='text' class='form-control' name='nombreLab' id="nombreLab")
           div(class='form-group text-center')
-            label(for='creadapor') Creada por: 
-            input(type='text' class='form-control' name='creadapor') 
+            label(for='estadoSol') Estado de Solicitud:
+            select(class='form_group' name='estadoSol' id="estadoSol")
+              option='todas'
+              option='confirmada'
+              option='pendiente'
+              option='rechazada'
           div(class='form-group text-center')
-            label(for='Estado') Estado:
-            select(class='form_group' name='Estado')
-              option(value='1') Desconocido
-              option(value='2') Aceptado
-              option(value='3') En espera
-              option(value='4') rechazado
+            label(for='nombreMat') Materia: 
+            input(type='text' class='form-control' name='nombreMat' id="nombreMat") 
           div(class='form-group text-center')
-            label(for='Software') Software necesitado: 
-            input(type='text' class='form-control' name='Software') 
-          div(class='form-group text-center')
-            label(for='Personas') Número de Personas: 
-            input(type='number' class='form-control' name='Personas') 
-          div(class='form-group text-center')
-            label(for='Responsable') Responsable(facilitador o catedrático): 
-            input(type='text' class='form-control' name='Responsable')           
-          button.btn.btn-primary(type='submit' class='text-center') Solicitar
+            label(for='carnetResponsable') Carnet del Responsable(facilitador o catedrático): 
+            input(type='text' class='form-control' name='carnetResponsable' id="carnetResponsable")           
+          a(href='informe/advancedRequest' class="btn btn-primary" id='requestBtn' data-dismiss='modal')='Solicitar'
+
+
+    script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous")
+    script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous")
+    script(src="/javascripts/reportData.js")

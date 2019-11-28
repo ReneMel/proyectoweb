@@ -1,6 +1,4 @@
 const db = require('../models/connection');
-const hp = require('../models/helpers');
-
 
 const getUser = (req,res)=>{
     const {
@@ -119,38 +117,21 @@ const getUserById = async (req,res)=>{
 const updateUser = async (req,res)=>{
     const user = req.body;
     const carnet = req.query.carnet;
-    await hp.helpers.encryptPassword(user.pass)
-    .then( async pass=>{
-        const update = await db.connection.any(`UPDATE usuario SET nombre=$1, 
-        contra=$2, correo=$3 
-        WHERE carnet=$4;`,[user.name,pass,user.email,carnet])
-        .catch(err=>{
-            console.log(err);
-        });
-        const updateUser = await db.connection.any(`SELECT $1~, $2~
-        FROM $3~ WHERE $4~ = '${carnet}';`,['nombre','correo','usuario','carnet'])
-        .then((data)=>{
-            return res.status(200).json(data);
-        })
-        .catch(err=>{
-            console.log(err);
-        })
-    });
     
-    // const update = await db.connection.any(`UPDATE usuario SET nombre=$1, 
-    // contra=$2, correo=$3 
-    // WHERE carnet=$4;`,[user.name,truePass,user.email,carnet])
-    // .catch(err=>{
-    //     console.log(err);
-    // });
-    // const updateUser = await db.connection.any(`SELECT $1~, $2~
-    // FROM $3~ WHERE $4~ = '${carnet}';`,['nombre','correo','usuario','carnet'])
-    // .then((data)=>{
-    //     return res.status(200).json(data);
-    // })
-    // .catch(err=>{
-    //     console.log(err);
-    // })
+    const update = await db.connection.any(`UPDATE usuario SET nombre=$1, 
+    contra=$2, correo=$3, tipo=$4 
+    WHERE carnet=$5;`,[user.name,user.pass,user.email,user.type,carnet])
+    .catch(err=>{
+        console.log(err);
+    });
+    const updateUser = await db.connection.any(`SELECT $1~, $2~, $3~ 
+    FROM $4~ WHERE $5~ = '${carnet}';`,['nombre','correo','tipo','usuario','carnet'])
+    .then((data)=>{
+        return res.status(200).json(data);
+    })
+    .catch(err=>{
+        console.log(err);
+    })
 }
 const turnUser = async (req,res)=>{
     const carnet = req.query.carnet;
@@ -344,7 +325,7 @@ const getEventoById = async (req, res)=>{
                                              concat(s.fecha_fin,$3,s.hora_fin) as end from solicitud as s,
                                              materia as m where estado = $4 and codigo_laboratorio= $5 
                                              and m.codigo=s.codigo_materia;`, 
-                                             ['Labo-0','T','T','confirmado', opt,': '])
+                                             ['Labo-0','T','T','confirmada', opt,': '])
         .then(data => {
             //console.log('DATA:', data);
             return res.status(200).json(data); // print and send data;

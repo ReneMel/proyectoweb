@@ -6,7 +6,7 @@ let denegbtn = document.getElementById('denegbtn')
 
 
 denegbtn.addEventListener('click', async()=>{
-    //console.log('Aprestaste'+ Changebtn.value);
+    console.log('Aprestaste'+ Changebtn.value);
     
     await fetch(`http://localhost:3000/u?es=rechazada&&id=${Changebtn.value}`,
     {
@@ -27,7 +27,7 @@ denegbtn.addEventListener('click', async()=>{
     
 })
 Changebtn.addEventListener('click', async()=>{
-        //console.log('Aprestaste'+ Changebtn.value);
+        console.log('Aprestaste'+ Changebtn.value);
         
         await fetch(`http://localhost:3000/u?es=confirmada&&id=${Changebtn.value}`,
         {

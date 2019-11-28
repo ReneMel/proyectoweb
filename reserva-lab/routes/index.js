@@ -16,7 +16,7 @@ router.get('/matBU',GetLogIn.getMaterias)
 /* GET home page. */
 router.get('/calendar', isLoggedIn, function(req, res, next) {
   console.log(req.session.passport.user.rol);
-  if(req.session.passport.user.rol==true){ 
+  if(req.session.passport.user.rol==false){ 
       res.render('CalendarAdmin')
   } else {
     res.render('CalendarDefault')
@@ -28,7 +28,8 @@ router.get('/calendar', isLoggedIn, function(req, res, next) {
 router.get(`/Evento`,GetLogIn.getEventoById)
 
 router.post('/calendar',function(req,res,next){
-    //console.log(req.body.Labo)
+    console.log(req.body.estado)
+    opt2=req.body.estado
     opt=req.body.Labo
 
     res.redirect(`/calendar?l=${opt}&e=${opt2}`)

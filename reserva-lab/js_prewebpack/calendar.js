@@ -54,14 +54,14 @@ document.addEventListener('DOMContentLoaded', function() {
       {
         className: 'confirmadas',
         url: `http://localhost:3000/evento?Labo=${opt}`, // use the `url` property
-        color: 'yellow',    // an option!
-        textColor: 'black'  // an option!
+        color: 'green',    // an option!
+        textColor: 'white'  // an option!
       },
       {
         className: 'mantenimiento',
         url: `http://localhost:3000/sp?Labo=${opt}`,
-        color:'green',  
-        textColor:'black'
+        color:'blue',  
+        textColor:'white'
       },
       //logs de usuario
       {
@@ -78,6 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log($(info).attr("textColor"));
         console.log(info.event)
         console.log(info.event._def.publicId);
+        
         let publicid =info.event._def.publicId;
         
         console.log(info.el.classList[5]);

@@ -19,12 +19,6 @@ html(lang="en")
             li(class="nav-item active"): a(class="nav-link" href="users/fillAdvanced" data-toggle='modal' data-target='#advancedModal' id='advancedBtn')='Búsqueda Avanzada'
             li(class="nav-item active"): a(class="nav-link" href="users/logout")
               ion-icon(name='power')
-          form(method='get' action='users/search' class="form-inline my-2 my-lg-0")
-            div(class="input-group mb-3")
-              input(input type="text" class="form-control" placeholder="Carnet" id='searchIn')
-              div(class="input-group-append")
-              button(class="btn btn-outline-success my-2 my-sm-0" type='submit' id='searchBtn')='Buscar'
-              button(type="button" class="btn btn-outline-danger my-2 my-sm-0" id='cancelBtn')='Cancelar'
       br
       form(method='POST' action='/?' class="container")
         div(class='form-group text-center')

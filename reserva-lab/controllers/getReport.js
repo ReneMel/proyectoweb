@@ -14,16 +14,6 @@ const getAdvancedReport = async (req,res)=>{
     let nombreMat = req.query.nombreMat;
     let carnetResponsable = req.query.carnetResponsable;
 
-    if(fechaSol){
-        console.log(fechaSol);
-        
-        console.log('Hola esto no funciona');
-    }
-    else{
-        nombreLab = null;
-        console.log('Hola esto funciona');
-    }
-
     if(fechaIni && fechaSol && horaIni && horaFin && nombreLab && nombreMat && carnetResponsable && (estadoSol != 'todas')) {
         await db.connection.any(`SELECT s.$1~ as "No_de_solicitud", s.$2~ as "Fecha_de_solicitud", s.$3~ as "Fecha_de_reserva",
         CONCAT('de ', s.$4~, ' a ', s.$5~) as "Duracion", s.$6~ as "Estado_de_solicitud", l.$7~ as "Laboratorio_solicitado",

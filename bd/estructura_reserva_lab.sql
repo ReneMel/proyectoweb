@@ -83,7 +83,7 @@ create table solicitud(
 	codigo_laboratorio int not null,
 	codigo_materia text not null
 );
-
+--Comentario
 drop table if exists mantenimiento cascade;
 create table mantenimiento(
 	carnet_soporte varchar(8) not null,
